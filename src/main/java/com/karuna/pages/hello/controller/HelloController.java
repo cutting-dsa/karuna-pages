@@ -1,4 +1,4 @@
-package com.karuna.pages.controller;
+package com.karuna.pages.hello.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
