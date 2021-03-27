@@ -12,7 +12,13 @@ Companies can also register and get reviews from the users
 Note: Default username is `user` and password `password`
 
 ## Instructions to run using Docker and docker-compose
+- Build jar file : `./gradlew clean build -x test` 
+Note: ignore tests for now
+- Run docker compose to start application and database containers `docker-compose up --build`
+- Test by running in your Rest client `http://localhost:8080` . You should get the greeting message. Remeber the authorization.
+Note: We need to externalize the credentials so they can be set by env variables and they don't appear in the committed code.
 
 ## Versions
+Current version is v1.0.0
 
 ## License
