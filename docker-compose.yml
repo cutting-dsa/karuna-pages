@@ -8,6 +8,11 @@ services:
     depends_on:
       - mysql_db
     command: sh -c './wait-for mysql_db:3306 -- npm start'
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/karuna_pages
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: nh34KL92wz0qlag28
+      SPRING_SECURITY_USER_PASSWORD: password
   mysql_db:
     platform: linux/x86_64
     image: "mysql:5.7"
