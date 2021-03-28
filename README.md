@@ -6,6 +6,12 @@ Companies can also register and get reviews from the users
 - Java >= 8 
 - MySQL 5.7
 
+## Branches
+- main : this is the master branch
+- develop: this is the development branch which we mostly work with. Also feature branches come out of this one
+- production: this is what we shall be deploying to online server once develop has gone through all reviews
+Note: When working on a feature you branch out of `develop` and your branch could be like `develop-question` for easy identification
+
 ## Instructions how to run for local development
 - Using gradle task `./gradlew clean bootRun` 
 - Using executbale jar, build `./gradlew clean bootJar` to build the jar and then run jar like `java -jar build/libs/karuna-pages0.0.1-SNAPSHOT.jar` (does not require external Tomcat)
