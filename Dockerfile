@@ -1,6 +1,9 @@
 FROM openjdk:8-jdk-alpine
 LABEL maintainer="mkgremo20@gmail.com"
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
 VOLUME /main-app
-ADD build/libs/karuna-pages-0.0.1-SNAPSHOT.jar app.jar
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar","/app.jar"]
