@@ -1,12 +1,10 @@
 package com.karuna.pages.core.security;
 
-import com.karuna.pages.role.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,13 +13,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Profile("basicauth")
 @Configuration
 @EnableWebSecurity
-public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -29,18 +30,25 @@ public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigu
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
-        // Disable CSRF
-        http.csrf().disable()
-                // Only admin can perform HTTP delete operation
-                .authorizeRequests().antMatchers(HttpMethod.DELETE).hasRole(Role.SUPER_ADMIN)
-                // any authenticated user can perform all other operations
-                .antMatchers("/hello").permitAll()
-                .antMatchers("/hello/guest").hasAuthority(Role.USER)
-                .antMatchers("/hello/admin").hasAuthority(Role.SUPER_ADMIN)
-                .anyRequest().authenticated()
-                .and().httpBasic()
+
+        http.cors(c -> {
+            CorsConfigurationSource source = request -> {
+                CorsConfiguration config = new CorsConfiguration();
+                config.setAllowedOrigins(Arrays.asList("*"));
+                config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                return config;
+            };
+            c.configurationSource(source);
+        });
+
+        http.antMatcher("/api/**")
+                // Disable CSRF
+                .csrf().disable()
                 // We don't need sessions to be created.
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests().anyRequest().authenticated();
+
     }
 
     @Autowired

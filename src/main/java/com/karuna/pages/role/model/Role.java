@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,8 +32,8 @@ public class Role implements Serializable {
     private String name;
 
     // bi-directional many-to-many association to User
-    @ManyToMany(mappedBy = "roles")
-    private Set<AppUser> appUsers;
+    //@ManyToMany(mappedBy = "roles")
+    //private Collection<AppUser> appUsers;
 
     @Override
     public int hashCode() {

@@ -1,5 +1,6 @@
 package com.karuna.pages.user.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.karuna.pages.role.model.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class AppUser implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +26,7 @@ public class AppUser implements Serializable {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -30,9 +34,9 @@ public class AppUser implements Serializable {
     private Integer enabled;
 
     // bi-directional many-to-many association to Role
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
     @Override
     public int hashCode() {
