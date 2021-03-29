@@ -22,7 +22,7 @@ import java.util.Arrays;
 @Profile("basicauth")
 @Configuration
 @EnableWebSecurity
-public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -31,7 +31,7 @@ public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigu
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
-        http.cors(c -> {
+        /*http.cors(c -> {
             CorsConfigurationSource source = request -> {
                 CorsConfiguration config = new CorsConfiguration();
                 config.setAllowedOrigins(Arrays.asList("*"));
@@ -39,15 +39,19 @@ public class BasicAuthenticationSecurityConfiguration extends WebSecurityConfigu
                 return config;
             };
             c.configurationSource(source);
-        });
+        });*/
 
-        http.antMatcher("/api/**")
-                // Disable CSRF
-                .csrf().disable()
-                // We don't need sessions to be created.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests().anyRequest().authenticated();
+        http.csrf().disable();// Disable CSRF
+        http.formLogin().disable();
+        http.headers().frameOptions().disable();
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests()
+                .anyRequest()
+                .authenticated();
+        //http.csrf().disable();// We don't need sessions to be created.
+
+        http.httpBasic();
 
     }
 

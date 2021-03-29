@@ -3,26 +3,24 @@ package com.karuna.pages.user.controller;
 import com.karuna.pages.user.model.AppUser;
 import com.karuna.pages.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
+@RequestMapping(path = "/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/api/user", method = RequestMethod.GET)
+    @GetMapping(path = "/", produces = "application/json")
     public Collection<AppUser> getAll(){
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/api/user", method = RequestMethod.POST, consumes = "application/json")
-    public AppUser createUser(@RequestBody AppUser user){
+    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    public AppUser createUser(AppUser user){
         return userService.saveUser(user);
     }
 }
