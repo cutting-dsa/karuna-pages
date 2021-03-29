@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### database ###
-db-backup/
+db-backup
