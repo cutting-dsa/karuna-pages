@@ -35,6 +35,10 @@ public class Role implements Serializable {
     //@ManyToMany(mappedBy = "roles")
     //private Collection<AppUser> appUsers;
 
+    public Role(String name){
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
