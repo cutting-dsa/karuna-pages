@@ -1,6 +1,7 @@
 package com.karuna.pages.question.service;
 
 import com.karuna.pages.category.model.Category;
+import com.karuna.pages.question.model.Answer;
 import com.karuna.pages.question.model.Question;
 import com.karuna.pages.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,10 @@ public class QuestionServiceImplementation implements QuestionService {
     @Override
     public Question disableQuestion(Long id) {
         return null;
+    }
+
+    @Override
+    public Question answerQuestion(Question question, Answer answer) {
+        return questionRepository.answerQuestion(question, answer);
     }
 }
