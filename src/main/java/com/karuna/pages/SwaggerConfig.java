@@ -6,9 +6,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Collections;
 
 @Configuration
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
@@ -23,7 +27,8 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(getApiInfo());
     }
 
     @Override
@@ -32,5 +37,13 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
         //enabling swagger-ui part for visual documentation
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    private ApiInfo getApiInfo() {
+        return new ApiInfo("Swagger2 Api Documentation",
+                "How to generate Swagger documentation for your Rest API",
+                "1.0", "urn:tos",
+                new Contact("Karuna Pages", "www.karunapages.com", "contact-us@karunapages.com"),
+                "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
     }
 }

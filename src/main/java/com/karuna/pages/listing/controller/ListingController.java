@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping(path = "/api/listing")
+@RequestMapping(path = "/listing")
 public class ListingController {
 
     @Autowired
