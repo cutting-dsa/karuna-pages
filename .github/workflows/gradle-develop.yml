@@ -1,0 +1,49 @@
+name: Karuna Pages API Build
+
+on:
+  push:
+    branches:
+      - develop
+      - production
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: kamiazya/setup-graphviz@v1
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Login to Github Packages Docker
+        uses: azure/docker-login@v1
+        with:
+          login-server: 'docker.pkg.github.com'
+          username: ${{ secrets.KARUNA_DOCKER_USERNAME }}
+          password: ${{ secrets.KARUNA_DOCKER_PASSWORD }}
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Gradlew Validation
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Build with Gradle
+        run: ./gradlew clean docker
+
+      - name: Build Docker image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: cutting-dsa/karuna-pages/karuna-pages
+          username: ${{ secrets.KARUNA_DOCKER_USERNAME }}
+          password: ${{ secrets.KARUNA_DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
+          tags: "latest"
