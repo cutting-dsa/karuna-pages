@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "com.palantir.docker" version "0.26.0"
+    id 'com.palantir.docker-compose' version "0.26.0"
 }
 
 group = 'com.karuna'
@@ -34,4 +36,19 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+docker {
+    name = "karuna/karuna-pages:".plus(version)
+    uri("karuna/karuna-pages:".plus(version))
+    tag("name", "karuna-pages")
+    buildArgs([BUILD_VERSION: 'version'])
+    copySpec.from("build").into("build")
+    pull(true)
+    setDockerfile(file("Dockerfile"))
+}
+
+
+tasks.docker{
+    dependsOn(bootJar)
 }
