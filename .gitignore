@@ -37,4 +37,4 @@ out/
 .vscode/
 
 ### database ###
-./deploy-karuna-pages.sh
+**/deploy-karuna-pages.sh
