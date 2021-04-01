@@ -25,30 +25,30 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @GetMapping("/category")
-    public Collection<Question> getAllQuestionByCategory(@RequestBody Category category) {
-        return questionService.getQuestions(category);
+    @GetMapping("/category/{id}")
+    public Collection<Question> getAllQuestionByCategory(@PathVariable Long id) {
+        return questionService.getQuestions(id);
     }
 
-    @PostMapping(value = "/create", consumes = "application/json")
+    @PostMapping(value = "/", consumes = "application/json")
     public Question createQuestion(@RequestBody Question question) {
         return questionService.saveQuestion(question);
     }
 
-    @GetMapping("/single-question/{id}")
+    @GetMapping("/{id}")
     public Question getSingleQuestion(@PathVariable Long id) {
         return questionService.getQuestion(id);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/")
     public Question updateQuestion(@RequestBody Question question) {
         return questionService.editQuestion(question);
     }
 
-    @PostMapping("/answer-question/{id}")
-    public Question answerQuestion(@RequestBody Answer answer, @PathVariable Long id) {
-        Question question = questionService.getQuestion(id);
-        Answer savedAnswer = answerService.save(answer);
-        return questionService.answerQuestion(question,savedAnswer);
-    }
+//    @PostMapping("/answer-question/{id}")
+//    public Question answerQuestion(@RequestBody Answer answer, @PathVariable Long id) {
+//        Question question = questionService.getQuestion(id);
+//        Answer savedAnswer = answerService.save(answer);
+//        return questionService.answerQuestion(question,savedAnswer);
+//    }
 }

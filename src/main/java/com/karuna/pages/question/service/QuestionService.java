@@ -12,7 +12,7 @@ import java.util.Collection;
 public interface QuestionService {
     Collection<Question> getAllQuestions();
 
-    Collection<Question> getQuestions(Category category);
+    Collection<Question> getQuestions(Long id);
 
     Question getQuestion(Long id);
 
@@ -23,6 +23,6 @@ public interface QuestionService {
     Question disableQuestion(Long id);
 
 //    @Query("insert into question_answer (question_id,answer_id) values(:question)")
-    Question answerQuestion(Question question, Answer answer);
+   // Question answerQuestion(Question question, Answer answer);
 
 }

@@ -21,8 +21,8 @@ public class QuestionServiceImplementation implements QuestionService {
     }
 
     @Override
-    public Collection<Question> getQuestions(Category category) {
-        return questionRepository.findAllByCategory(category);
+    public Collection<Question> getQuestions(Long id) {
+        return questionRepository.findAllByCategoryId(id);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class QuestionServiceImplementation implements QuestionService {
         return null;
     }
 
-    @Override
-    public Question answerQuestion(Question question, Answer answer) {
-        return questionRepository.answerQuestion(question, answer);
-    }
+//    @Override
+//    public Question answerQuestion(Question question, Answer answer) {
+//        return questionRepository.answerQuestion(question, answer);
+//    }
 }

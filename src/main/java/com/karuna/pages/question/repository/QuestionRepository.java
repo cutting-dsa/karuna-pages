@@ -12,9 +12,9 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAll();
 
-    List<Question> findAllByCategory(Category category);
+    List<Question> findAllByCategoryId(Long id);
 
     Question findQuestionById(Long id);
 
-    Question answerQuestion(Question question, Answer answer);
+//    Question answerQuestion(Question question, Answer answer);
 }
