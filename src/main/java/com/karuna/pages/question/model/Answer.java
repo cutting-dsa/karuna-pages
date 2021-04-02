@@ -1,5 +1,6 @@
 package com.karuna.pages.question.model;
 
+import com.karuna.pages.user.model.AppUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,14 @@ public class Answer implements Serializable {
 
     @Column(name = "answer", nullable = false)
     private String answer;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private AppUser user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private Question question;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
-public class AnswerServiceImplementation implements AnswerService{
+public class AnswerServiceImplementation implements AnswerService {
     @Autowired
     private AnswerRepository answerRepository;
 
@@ -18,7 +18,13 @@ public class AnswerServiceImplementation implements AnswerService{
     }
 
     @Override
+    public Collection<Answer> getAllAnswersByQuestion(Long id) {
+        return answerRepository.getAnswerByQuestionId(id);
+    }
+
+    @Override
     public Answer save(Answer answer) {
         return answerRepository.save(answer);
     }
+
 }

@@ -8,7 +8,6 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -34,10 +33,6 @@ public class Question implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     private Category category;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "question_answer", joinColumns = {@JoinColumn(name = "question_id")}, inverseJoinColumns = {@JoinColumn(name = "answer_id")})
-    private Collection<Answer> answers;
-
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private Date created_at;
@@ -57,12 +52,11 @@ public class Question implements Serializable {
         return status == question.status &&
                 Objects.equals(id, question.id) &&
                 Objects.equals(name, question.name) &&
-                Objects.equals(category, question.category) &&
-                Objects.equals(answers, question.answers);
+                Objects.equals(category, question.category);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, status, category, answers);
+        return Objects.hash(id, name, status, category);
     }
 }
