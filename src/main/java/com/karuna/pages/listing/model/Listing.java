@@ -2,6 +2,7 @@ package com.karuna.pages.listing.model;
 
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.user.model.AppUser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Listing implements Serializable {

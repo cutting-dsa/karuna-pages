@@ -1,5 +1,5 @@
 # karuna-pages
-This is the repository for the project that allows a listing to ask questions and receive help from general public.
+This is the repository for the project that allows a review to ask questions and receive help from general public.
 Companies can also register and get reviews from the users
 
 ## Requirements
@@ -15,7 +15,7 @@ Note: When working on a feature you branch out of `develop` and your branch coul
 ## Instructions how to run for local development
 - Using gradle task `./gradlew clean bootRun` 
 - Using executbale jar, build `./gradlew clean bootJar` to build the jar and then run jar like `java -jar build/libs/karuna-pages0.0.1-SNAPSHOT.jar` (does not require external Tomcat)
-Note: Default username is `listing` and password `password`
+Note: Default username is `review` and password `password`
 
 ## Instructions to run using Docker and docker-compose
 - Build jar file : `./gradlew clean build -x test` 
