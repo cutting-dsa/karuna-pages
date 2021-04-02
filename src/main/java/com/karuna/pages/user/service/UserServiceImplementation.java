@@ -1,5 +1,6 @@
 package com.karuna.pages.user.service;
 
+import com.karuna.pages.core.config.ThreadLocalContextUtil;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.role.repository.RoleRepository;
 import com.karuna.pages.user.model.AppUser;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Component
 public class UserServiceImplementation implements UserService{
@@ -25,13 +25,12 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public Collection<AppUser> getAllUsers() {
+        AppUser user = ThreadLocalContextUtil.getUser();
         return userRepository.findAll();
     }
 
     @Override
     public AppUser getUser(Long id) {
-        AppUser user = userRepository.getUserById(id);
-        //if()
         return userRepository.getUserById(id);
     }
 
@@ -49,7 +48,7 @@ public class UserServiceImplementation implements UserService{
 
         user.setRoles(roles);
 
-        if(user.getPassword() != null) user.setPassword("{bcrypt}" + bCryptPasswordEncoder.encode(user.getPassword()));
+        if(user.getPassword() != null) user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
     }
@@ -60,10 +59,15 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public AppUser disbaleUser(Long id) {
+    public AppUser disableUser(Long id) {
         AppUser user =  userRepository.getUserById(id);
 
         return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public AppUser getLoggedInUser() {
+        return ThreadLocalContextUtil.getUser();
     }
 
 

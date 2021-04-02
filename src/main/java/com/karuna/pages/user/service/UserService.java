@@ -16,5 +16,9 @@ public interface UserService {
 
     AppUser editUser(AppUser user);
 
-    AppUser disbaleUser(Long id);
+    AppUser disableUser(Long id);
+
+    AppUser getLoggedInUser();
+
+
 }
