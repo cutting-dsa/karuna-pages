@@ -10,7 +10,8 @@ import java.util.Collection;
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, Long> {
 
-    Collection<Listing> findAllByCategory(Category category);
+    Collection<Listing> findAllByCategoryAndActive(Category category, int active);
+    Collection<Listing> findAllByActive(int active);
 
     Listing getListingById(Long id);
 }

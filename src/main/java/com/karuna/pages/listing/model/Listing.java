@@ -46,6 +46,9 @@ public class Listing implements Serializable {
     @Column(name = "approved", nullable = true)
     private int approved;
 
+    @Column(name = "average_rating", nullable = true)
+    private int averageRating;
+
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser listinguser;

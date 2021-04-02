@@ -16,8 +16,9 @@ CREATE TABLE IF NOT EXISTS listing (
                                        `banner_url` VARCHAR(255) NOT NULL,
                                        `icon_url` VARCHAR(255) NOT NULL,
                                        approved BIGINT NOT NULL,
+                                       average_rating BIGINT NOT NULL,
                                        user_id BIGINT NOT NULL,
                                        category BIGINT NOT NULL
 
 );
-INSERT INTO listing (listingname,active, address,latitude,longitude,banner_url,icon_url,approved,user_id,category) values ('Walmart Supermaket',1, '1000 N 4th st fairfield IA 5227','12736449.122','22736449.122','https://someawslocation/maharishi_banner.png','https://someawslocation/maharishi_icon.png',0,(SELECT id FROM app_user WHERE username = "karuna"),(SELECT id FROM category WHERE name = "Education"));
+INSERT INTO listing (listingname,active, address,latitude,longitude,banner_url,icon_url,approved,average_rating,user_id,category) values ('Walmart Supermaket',1, '1000 N 4th st fairfield IA 5227','12736449.122','22736449.122','https://someawslocation/maharishi_banner.png','https://someawslocation/maharishi_icon.png',0,1,(SELECT id FROM app_user WHERE username = "karuna"),(SELECT id FROM category WHERE name = "Education"));

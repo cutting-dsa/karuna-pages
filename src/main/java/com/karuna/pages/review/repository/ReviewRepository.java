@@ -10,7 +10,9 @@ import java.util.Collection;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    Collection<Review> findAllByListing(Listing listing);
+    Collection<Review> findAllByListingAndStatus(Listing listing, int status);
+
+    Collection<Review> findAllByStatus(int status);
 
     Review getReviewById(Long id);
 }

@@ -10,7 +10,6 @@ import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
@@ -34,13 +33,13 @@ public class CategoryServiceImplementationTest {
         categoryList.add(category1);
         categoryList.add(category2);
 
-        when(categoryRepository.findAll()).thenReturn(categoryList);
+        when(categoryRepository.findAllByActive(1)).thenReturn(categoryList);
 
         Collection<Category> categories = categoryService.getAllCategories();
         Assert.assertEquals(categoryList.size(), categories.size());
                 ArrayList<Category> actualResult = new ArrayList<>(categories);
         Assert.assertEquals(categoryList.get(0).getName(), actualResult.get(0).getName());
-        verify(categoryRepository, times(1)).findAll();
+        verify(categoryRepository, times(1)).findAllByActive(1);
     }
 
     @Test

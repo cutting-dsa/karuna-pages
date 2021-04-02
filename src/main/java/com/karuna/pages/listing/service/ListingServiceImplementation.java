@@ -16,12 +16,12 @@ public class ListingServiceImplementation implements ListingService {
 
     @Override
     public Collection<Listing> getAllListings() {
-        return listingRepository.findAll();
+        return listingRepository.findAllByActive(1);
     }
 
     @Override
     public Collection<Listing> getAllListingsByCategory(Category category) {
-        return listingRepository.findAllByCategory(category);
+        return listingRepository.findAllByCategoryAndActive(category,1);
     }
 
     @Override

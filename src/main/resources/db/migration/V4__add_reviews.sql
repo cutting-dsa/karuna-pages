@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS review (
                                        listing_id BIGINT NOT NULL
 
 );
-INSERT INTO review (comment,rating, status,user_id,listing_id) values ('It is a great supermarket, my one stop shop!',8, 1,(SELECT id FROM app_user WHERE username = "karuna"),(SELECT id FROM listing WHERE listingname = "Walmart Supermaket"));
+INSERT INTO review (comment,rating, status,user_id,listing_id) values ('It is a great supermarket, my one stop shop!',5, 1,(SELECT id FROM app_user WHERE username = "karuna"),(SELECT id FROM listing WHERE listingname = "Walmart Supermaket"));
