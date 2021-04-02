@@ -18,12 +18,34 @@ Note: When working on a feature you branch out of `develop` and your branch coul
 Note: Default username is `review` and password `password`
 
 ## Instructions to run using Docker and docker-compose
-- Build jar file : `./gradlew clean build -x test` 
-Note: ignore tests for now
-- Run docker compose to start application and database containers `docker-compose up --build`
-- Test by running in your Rest client `http://localhost:8080` . You should get the greeting message. Remeber the authorization.
+Run containers using docker compose
+- To run application in docker containers `./gradlew clean dockerComposeUp` 
+- To stop the containers `./gradlew clean dockerComposeDown`
 Note: We need to externalize the credentials so they can be set by env variables and they don't appear in the committed code.
 
+Build containers using docker
+- If you want to just build container run `./gradlew clean docker` 
+- By default the image will have the name defined in the docker task in build.gradle file which is karuna/karuna-pages
+
+`docker {
+    name = "karuna/karuna-pages:".plus(version)
+    uri("karuna/karuna-pages:".plus(version))
+    tag("name", "karuna-pages")
+    buildArgs([BUILD_VERSION: 'version'])
+    copySpec.from("build").into("build")
+    pull(true)
+    setDockerfile(file("Dockerfile"))
+}`
+In the docker compose we use that name like below 
+`api_service:
+    image: "karuna/karuna-pages:0.0.1-SNAPSHOT"
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql_db
+    command: sh -c './wait-for mysql_db:3306 -- npm start'`
+    
 ## Versions
 Current version is v1.0.0
 
