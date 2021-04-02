@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS app_user (
                         enabled INT NOT NULL
 );
 
-INSERT INTO app_user (username, password, enabled) values ('karuna', '{bcrypt}$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6', 1);
+INSERT INTO app_user (username, password, enabled) values ('karuna', '$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6', 1);
 
 CREATE TABLE IF NOT EXISTS `role` (
                                         id BIGINT AUTO_INCREMENT PRIMARY KEY,
