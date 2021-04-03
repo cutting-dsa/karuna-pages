@@ -25,7 +25,7 @@ public class CategoryServiceImplementationTest {
     CategoryServiceImplementation categoryService;
 
     @Test
-    void getAllCategories() {
+    void getAllCategoriesTest() {
 
         List<Category> categoryList = new ArrayList<>();
         Category category1 = new Category(1L,"Education",1);
@@ -43,7 +43,7 @@ public class CategoryServiceImplementationTest {
     }
 
     @Test
-    void getCategory() {
+    void getCategoryTest() {
         Category category1 = new Category(1L,"Education",1);
         when(categoryRepository.getCategoryById(anyLong())).thenReturn(category1);
 
@@ -54,7 +54,7 @@ public class CategoryServiceImplementationTest {
     }
 
     @Test
-    void saveCategory() {
+    void saveCategoryTest() {
 
         Category category1 = new Category(1L,"Education",1);
 
@@ -73,7 +73,7 @@ public class CategoryServiceImplementationTest {
     }
 
     @Test
-    void disbaleCategory() {
+    void disbaleCategoryTest() {
 
         Category category1 = new Category(1L,"Education",1);
         when(categoryRepository.getCategoryById(anyLong())).thenReturn(category1);
