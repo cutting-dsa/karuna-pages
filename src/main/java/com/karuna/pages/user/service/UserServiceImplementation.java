@@ -5,12 +5,15 @@ import com.karuna.pages.role.model.Role;
 import com.karuna.pages.role.repository.RoleRepository;
 import com.karuna.pages.user.model.AppUser;
 import com.karuna.pages.user.repository.UserRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Component
 public class UserServiceImplementation implements UserService{
@@ -67,6 +70,18 @@ public class UserServiceImplementation implements UserService{
     @Override
     public AppUser getLoggedInUser() {
         return ThreadLocalContextUtil.getUser();
+    }
+
+    @Override
+    public AppUser getUserEnabled(String username, String password) {
+        Collection<AppUser> users = userRepository.getAppUsersByUsernameAndEnabled(username, 1);
+        Optional<AppUser> user = users.stream().filter(u -> bCryptPasswordEncoder.matches(password, u.getPassword())).findAny();
+
+        if(!user.isPresent()){
+            throw new BadCredentialsException("Failed to login. Please check your credentials and try again");
+        }
+
+        return user.get();
     }
 
 

@@ -20,5 +20,7 @@ public interface UserService {
 
     AppUser getLoggedInUser();
 
+    AppUser getUserEnabled(String username, String password);
+
 
 }

@@ -23,4 +23,9 @@ public class UserController {
     public AppUser createUser(@RequestBody AppUser user){
         return userService.saveUser(user);
     }
+
+    @GetMapping(path = "/login", produces = "application/json")
+    public AppUser login(@RequestParam String username, @RequestParam String password){
+        return userService.getUserEnabled(username, password);
+    }
 }

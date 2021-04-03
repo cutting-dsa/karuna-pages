@@ -29,6 +29,12 @@ public class AppUser implements Serializable {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @Column(name = "first_name", nullable = false, unique = true)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, unique = true)
+    private String lastName;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false)
     private String password;
