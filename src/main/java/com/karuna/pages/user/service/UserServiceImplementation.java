@@ -25,7 +25,6 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public Collection<AppUser> getAllUsers() {
-        AppUser user = ThreadLocalContextUtil.getUser();
         return userRepository.findAll();
     }
 
