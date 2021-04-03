@@ -1,6 +1,7 @@
 package com.karuna.pages.role.model;
 
 import com.karuna.pages.user.model.AppUser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.Set;
  */
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Role implements Serializable {

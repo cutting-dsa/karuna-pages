@@ -2,6 +2,7 @@ package com.karuna.pages.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.karuna.pages.role.model.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class AppUser implements Serializable {
