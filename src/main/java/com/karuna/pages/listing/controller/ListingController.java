@@ -3,6 +3,8 @@ package com.karuna.pages.listing.controller;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.service.ListingService;
+import com.karuna.pages.question.model.Answer;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +51,14 @@ public class ListingController {
     @PostMapping(value = "/approve", consumes = "application/json", produces = "application/json")
     public Listing approveListing(@RequestBody Long id){
         return listingService.approveListing(id);
+    }
+
+    @GetMapping(path = "/byuser", produces = "application/json")
+    public Collection<Listing> getUserListings(@RequestBody AppUser id) {
+        return listingService.getListingByUser(id);
+    }
+    @GetMapping(path = "/search", produces = "application/json")
+    public Listing searchListings(@RequestBody String keyword) {
+        return listingService.searchListing(keyword);
     }
 }

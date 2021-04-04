@@ -1,6 +1,7 @@
 package com.karuna.pages.question.model;
 
 import com.karuna.pages.category.model.Category;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Question implements Serializable {
