@@ -36,6 +36,9 @@ jobs:
       - name: Gradlew Validation
         uses: gradle/wrapper-validation-action@v1
 
+      - name: Run Tests
+        if: endsWith(github.ref, '/develop')
+
       - name: Build with Gradle
         run: ./gradlew clean docker
 
@@ -47,3 +50,14 @@ jobs:
           password: ${{ secrets.KARUNA_DOCKER_PASSWORD }}
           registry: docker.pkg.github.com
           tags: "latest"
+
+      - name: Deploy to demo server
+          if: endsWith(github.ref, '/develop')
+          run: |
+            echo "$KARUNA_SERVER_SSH_KEY" > key.pem
+            chmod 400 key.pem
+            echo "Restart docker container...!!!"
+            ssh -i key.pem -o StrictHostKeyChecking=no $KARUNA_SERVER_URL './deploy-files/deploy-karuna.sh'
+          env:
+            TEST_SERVER_SSH_KEY: ${{ secrets.KARUNA_SERVER_SSH_KEY }}
+            TEST_SERVER_URL: ${{ secrets.KARUNA_SERVER_URL }}
