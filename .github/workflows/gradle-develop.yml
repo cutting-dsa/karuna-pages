@@ -38,6 +38,7 @@ jobs:
 
       - name: Run Tests
         if: endsWith(github.ref, '/develop')
+        run: echo "Will be running unit tests"
 
       - name: Build with Gradle
         run: ./gradlew clean docker
