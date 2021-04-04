@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - production
+      - develop-deploy
 
 jobs:
   build:
@@ -53,7 +54,7 @@ jobs:
           tags: "latest"
 
       - name: Deploy to demo server
-        if: endsWith(github.ref, '/develop')
+        if: endsWith(github.ref, '/develop-deploy')
         run: |
           echo "TEST_SERVER_SSH_KEY" > key.pem
           chmod 400 key.pem
