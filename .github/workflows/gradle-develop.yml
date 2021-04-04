@@ -41,23 +41,15 @@ jobs:
         if: endsWith(github.ref, '/develop')
         run: echo "Will be running unit tests"
 
-      - name: Configure SSH
+      - name: Deploy to demo server
         if: endsWith(github.ref, '/develop-deploy')
         run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
+          echo "${{ secrets.KARUNA_SERVER_SSH_KEY }}" > karunapages.pem
+          echo $TEST_SERVER_SSH_KEY
+          chmod 400 karunapages.pem
+          echo "Restart docker container...!!!"
+          echo $TEST_SERVER_URL
+          ssh -v -i karunapages.pem -o StrictHostKeyChecking=no ${{ secrets.KARUNA_SERVER_URL }} '/ubuntu/deploy-files/deploy-karuna.sh'
         env:
-          SSH_USER: ${{ secrets.KARUNA_SERVER_USER }}
-          SSH_KEY: ${{ secrets.KARUNA_SERVER_SSH_KEY }}
-          SSH_HOST: ${{ secrets.KARUNA_SERVER_URL }}
-
-      - name: Deploy to demo server
-        run: ssh -v staging '/ubuntu/deploy-files/deploy-karuna.sh'
+          TEST_SERVER_SSH_KEY: ${{ secrets.KARUNA_SERVER_SSH_KEY }}
+          TEST_SERVER_URL: ${{ secrets.KARUNA_SERVER_URL }}
