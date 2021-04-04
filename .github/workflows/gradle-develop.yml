@@ -44,12 +44,10 @@ jobs:
       - name: Deploy to demo server
         if: endsWith(github.ref, '/develop-deploy')
         run: |
-          echo "${{ secrets.KARUNA_SERVER_SSH_KEY }}" > karunapages.pem
-          echo $TEST_SERVER_SSH_KEY
-          chmod 400 karunapages.pem
+          echo "$TEST_SERVER_SSH_KEY" > karuna.pem
+          chmod 400 karuna.pem
           echo "Restart docker container...!!!"
-          echo $TEST_SERVER_URL
-          ssh -v -i karunapages.pem -o StrictHostKeyChecking=no ${{ secrets.KARUNA_SERVER_URL }} '/ubuntu/deploy-files/deploy-karuna.sh'
+          ssh -v -i karunapages.pem -o StrictHostKeyChecking=no $TEST_SERVER_URL '/ubuntu/deploy-files/deploy-karuna.sh'
         env:
           TEST_SERVER_SSH_KEY: ${{ secrets.KARUNA_SERVER_SSH_KEY }}
           TEST_SERVER_URL: ${{ secrets.KARUNA_SERVER_URL }}
