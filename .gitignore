@@ -38,4 +38,7 @@ out/
 
 ### database ###
 **/db-backup
+
+#deploy files
 **/deploy-karuna-pages.sh
+dockhero-compose.yml
