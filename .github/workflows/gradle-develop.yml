@@ -59,8 +59,7 @@ jobs:
           echo "$TEST_SERVER_SSH_KEY" > karuna.pem
           chmod 400 karuna.pem
           echo "Restart docker container...!!!"
-          ssh -v -i karuna.pem -o StrictHostKeyChecking=no $TEST_SERVER_URL 'ls'
-          ssh -v -i karuna.pem -o StrictHostKeyChecking=no $TEST_SERVER_URL '/home/ubuntu/deploy-files/deploy-karuna.sh'
+          ssh -v -i karuna.pem -o StrictHostKeyChecking=no $TEST_SERVER_URL 'cd /home/ubuntu/deploy-files && ./deploy-karuna.sh'
         env:
           TEST_SERVER_SSH_KEY: ${{ secrets.KARUNA_SERVER_SSH_KEY }}
           TEST_SERVER_URL: ${{ secrets.KARUNA_SERVER_URL }}
