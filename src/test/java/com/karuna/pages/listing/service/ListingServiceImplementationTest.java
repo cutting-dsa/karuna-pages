@@ -35,7 +35,7 @@ public class ListingServiceImplementationTest {
         Role role = new Role(2L,"User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
-        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbom",1,roleList);
+        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
         Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1);
 
         return listing;
@@ -119,5 +119,26 @@ public class ListingServiceImplementationTest {
 
         Assertions.assertEquals(1,expected.getApproved());
         verify(listingRepository, times(1)).getListingById(1L);
+    }
+
+    @Test
+    void getListingByUserTest() {
+        Role role = new Role(2L,"User");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+      AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
+
+        List<Listing> listingListList = new ArrayList<>();
+        listingListList.add(stubListing());
+
+        when(listingRepository.findAllByListinguser(any(AppUser.class))).thenReturn(listingListList);
+
+        Collection<Listing> listings = listingService.getListingByUser(appUser);
+
+        Assert.assertEquals(listingListList.size(), listings.size());
+        ArrayList<Listing> actualResult = new ArrayList<>(listings);
+        Assert.assertEquals(listingListList.get(0).getListingname(), actualResult.get(0).getListingname());
+        verify(listingRepository, times(1)).findAllByListinguser(any(AppUser.class));
+
     }
 }

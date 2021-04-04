@@ -3,6 +3,7 @@ package com.karuna.pages.listing.service;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,5 +55,16 @@ public class ListingServiceImplementation implements ListingService {
         listing.setApproved(1);
         listingRepository.save(listing);
         return listing;
+    }
+
+    @Override
+    public Collection<Listing> getListingByUser(AppUser id) {
+        return listingRepository.findAllByListinguser(id);
+    }
+
+    @Override
+    public Listing searchListing(String keyword) {
+        System.out.println("Result is " + listingRepository.getListingByListingname(keyword));
+        return listingRepository.getListingByListingname(keyword);
     }
 }
