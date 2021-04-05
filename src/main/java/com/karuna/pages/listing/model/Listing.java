@@ -70,7 +70,7 @@ public class Listing implements Serializable {
     }
 
     public void editListing(Listing listing){
-        if(listing.listingname != null) this.setListingname(listingname);
+        if(listing.listingname != null) this.setListingname(listing.listingname);
 
         if(listing.address != null) this.setAddress(listing.address);
 
@@ -80,10 +80,7 @@ public class Listing implements Serializable {
 
             this.setApproved(listing.approved);
 
-
             if(listing.averageRating != this.averageRating) throw new BadRequestException("User must have at least one role");
-
-
 
     }
 
