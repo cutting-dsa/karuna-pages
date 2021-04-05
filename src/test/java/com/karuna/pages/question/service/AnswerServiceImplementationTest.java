@@ -28,26 +28,27 @@ class AnswerServiceImplementationTest {
     @InjectMocks
     AnswerServiceImplementation answerService;
 
-    private Answer stubAnswer(){
+    private Answer stubAnswer() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2021,11,31,59,59,59);
+        calendar.set(2021, 11, 31, 59, 59, 59);
         Date qDate = calendar.getTime();
-        Role role = new Role(2L,"User");
+        Role role = new Role(2L, "User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
-        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Answer answer = new Answer(1L,"Yes they are available",appUser,stubQuestion(),qDate);
+        AppUser appUser = new AppUser(1L, "Ruvimbom", "Ruvimbo", "Ruvimbo", "Ruvimbom", 1, roleList);
+        Answer answer = new Answer(1L, "Yes they are available", appUser, stubQuestion(), qDate);
 
         return answer;
 
     }
-    private Question stubQuestion(){
 
-        Category category1 = new Category(1L,"Education",1);
+    private Question stubQuestion() {
+
+        Category category1 = new Category(1L, "Education", 1);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2021,11,31,59,59,59);
+        calendar.set(2021, 11, 31, 59, 59, 59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,qDate);
+        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubQuestion().getUser(),qDate);
 
         return question;
 

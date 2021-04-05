@@ -1,13 +1,7 @@
 package com.karuna.pages.question.controller;
 
-import com.karuna.pages.category.model.Category;
-import com.karuna.pages.category.repository.CategoryRepository;
-import com.karuna.pages.category.service.CategoryService;
 import com.karuna.pages.question.model.Question;
-import com.karuna.pages.question.repository.QuestionRepository;
-import com.karuna.pages.question.service.AnswerService;
 import com.karuna.pages.question.service.QuestionService;
-import com.karuna.pages.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +14,6 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @Autowired
-    private AnswerService answerService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private QuestionRepository questionRepository;
-
     @GetMapping("/")
     public Collection<Question> getAllQuestions() {
         return questionService.getAllQuestions();
@@ -39,8 +21,7 @@ public class QuestionController {
 
     @GetMapping("/category/{id}")
     public Collection<Question> getAllQuestionByCategory(@PathVariable Long id) {
-        Category category = categoryService.getCategory(id);
-        return questionRepository.findQuestionsByCategory(category);
+       return questionService.getQuestionByCategory(id);
     }
 
     @PostMapping(value = "/", consumes = "application/json")

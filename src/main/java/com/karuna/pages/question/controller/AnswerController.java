@@ -16,9 +16,6 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @Autowired
-    private QuestionService questionService;
-
     @PostMapping("/")
     public Answer answerQuestion(@RequestBody Answer answer) {
         return answerService.save(answer);
@@ -26,11 +23,6 @@ public class AnswerController {
 
     @GetMapping("/question/{id}")
     public Collection<Answer> getQuestionAnswers(@PathVariable Long id) {
-        Question question = questionService.getQuestion(id);
-        if (question != null) {
-            return answerService.getAllAnswersByQuestion(id);
-        } else {
-            return null;
-        }
+       return answerService.getQuestionAnswers(id);
     }
 }
