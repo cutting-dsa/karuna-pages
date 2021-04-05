@@ -1,7 +1,6 @@
 package com.karuna.pages.user.service;
 
 import com.karuna.pages.core.config.ThreadLocalContextUtil;
-import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
 import com.karuna.pages.user.repository.UserRepository;

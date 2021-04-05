@@ -36,10 +36,4 @@ public class UserController {
     public AppUser login(@RequestParam String username, @RequestParam String password){
         return userService.getUserEnabled(username, password);
     }
-
-    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
-    @GetMapping(path = "/user/test", produces = "application/json")
-    public Collection<AppUser> test(){
-        return userService.getAllUsers();
-    }
 }
