@@ -1,6 +1,10 @@
 package com.karuna.pages.question.controller;
 
+import com.karuna.pages.category.model.Category;
+import com.karuna.pages.category.repository.CategoryRepository;
+import com.karuna.pages.category.service.CategoryService;
 import com.karuna.pages.question.model.Question;
+import com.karuna.pages.question.repository.QuestionRepository;
 import com.karuna.pages.question.service.AnswerService;
 import com.karuna.pages.question.service.QuestionService;
 import com.karuna.pages.user.service.UserService;
@@ -22,6 +26,12 @@ public class QuestionController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
     @GetMapping("/")
     public Collection<Question> getAllQuestions() {
         return questionService.getAllQuestions();
@@ -29,7 +39,8 @@ public class QuestionController {
 
     @GetMapping("/category/{id}")
     public Collection<Question> getAllQuestionByCategory(@PathVariable Long id) {
-        return questionService.getQuestions(id);
+        Category category = categoryService.getCategory(id);
+        return questionRepository.findQuestionsByCategory(category);
     }
 
     @PostMapping(value = "/", consumes = "application/json")
