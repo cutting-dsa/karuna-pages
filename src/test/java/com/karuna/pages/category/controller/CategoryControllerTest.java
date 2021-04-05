@@ -92,13 +92,13 @@ class CategoryControllerTest {
 
         Category category = new Category(1L,"Education",1);
 
-        when(categoryService.editCategory(any(Category.class))).thenReturn(category);
+        when(categoryService.editCategory(anyLong(),any(Category.class))).thenReturn(category);
 
-        Category response = categoryController.editCategory(category);
+        Category response = categoryController.editCategory(1L,category);
 
         assertThat(response.getName()).isEqualTo(category.getName());
 
-        verify(categoryService, times(1)).editCategory(any(Category.class));
+        verify(categoryService, times(1)).editCategory(anyLong(),any(Category.class));
     }
 
     @Test

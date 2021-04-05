@@ -17,7 +17,7 @@ public interface ReviewService {
 
     Review saveReview(Review review);
 
-    Review editReview(Review review);
+    Review editReview(Long id,Review review);
 
     Review deleteReview(Long id);
 }

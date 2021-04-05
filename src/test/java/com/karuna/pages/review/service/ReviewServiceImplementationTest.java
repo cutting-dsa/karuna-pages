@@ -114,7 +114,8 @@ public class ReviewServiceImplementationTest {
 
     @Test
     void editReviewTest() {
-        reviewService.editReview(stubReview());
+        when(reviewRepository.getReviewById(anyLong())).thenReturn(stubReview());
+        reviewService.editReview(1L,stubReview());
 
         verify(reviewRepository, times(1)).save(any(Review.class));
     }

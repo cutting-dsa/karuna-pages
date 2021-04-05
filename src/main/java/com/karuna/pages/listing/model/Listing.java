@@ -57,6 +57,14 @@ public class Listing implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     private Category category;
 
+    public String getListingname() {
+        return listingname;
+    }
+
+    public void setListingname(String listingname) {
+        this.listingname = listingname;
+    }
+
     @Override
     public String toString() {
         return "Listing{" +

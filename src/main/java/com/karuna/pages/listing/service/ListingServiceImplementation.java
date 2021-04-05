@@ -1,8 +1,11 @@
 package com.karuna.pages.listing.service;
 
 import com.karuna.pages.category.model.Category;
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
+import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,9 +39,16 @@ public class ListingServiceImplementation implements ListingService {
     }
 
     @Override
-    public Listing editListing(Listing listing) {
+    public Listing editListing(Long id, Listing listing) {
+        if(id == null) throw new BadRequestException("Listing id cannot be null");
 
-        return listingRepository.save(listing);
+        if(listing == null) return null;
+
+        Listing savedListing = listingRepository.getListingById(id);
+
+        if(savedListing == null) throw new ResourceNotFoundException("Review with id " + id + " not found");
+
+        return  listingRepository.save(listing);
     }
 
     @Override
@@ -63,8 +73,8 @@ public class ListingServiceImplementation implements ListingService {
     }
 
     @Override
-    public Listing searchListing(String keyword) {
-        System.out.println("Result is " + listingRepository.getListingByListingname(keyword));
-        return listingRepository.getListingByListingname(keyword);
+    public Collection<Listing> searchListing(String keyword) {
+        System.out.println("Result is " + listingRepository.findListingByListingname(keyword));
+        return listingRepository.searchListing(keyword);
     }
 }

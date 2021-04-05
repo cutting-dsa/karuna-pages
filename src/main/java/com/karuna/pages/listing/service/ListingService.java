@@ -11,7 +11,7 @@ import java.util.Collection;
 public interface ListingService {
 
     Collection<Listing> getAllListings();
-    Listing searchListing(String keyword);
+    Collection<Listing> searchListing(String keyword);
 
     Collection<Listing> getAllListingsByCategory(Category category);
 
@@ -21,7 +21,7 @@ public interface ListingService {
 
     Listing saveListing(Listing listing);
 
-    Listing editListing(Listing listing);
+    Listing editListing(Long id, Listing listing);
 
     Listing deleteListing(Long id);
 

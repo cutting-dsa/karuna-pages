@@ -46,9 +46,9 @@ class AnswerServiceImplementationTest {
 
         Category category1 = new Category(1L, "Education", 1);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2021, 11, 31, 59, 59, 59);
+        calendar.set(2021, 11, 31, 9, 59, 59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubQuestion().getUser(),qDate);
+        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(),qDate);
 
         return question;
 
@@ -58,7 +58,6 @@ class AnswerServiceImplementationTest {
     void getAllAnswersTest() {
         List<Answer> answerList = new ArrayList<>();
         answerList.add(stubAnswer());
-
 
         when(answerRepository.findAll()).thenReturn(answerList);
 
@@ -89,10 +88,16 @@ class AnswerServiceImplementationTest {
         List<Answer> answerList = new ArrayList<>();
         answerList.add(stubAnswer());
 
-
         when(answerRepository.save(any(Answer.class))).thenReturn(stubAnswer());
         answerService.save(stubAnswer());
 
         verify(answerRepository, times(1)).save(any(Answer.class));
+    }
+
+    private AppUser stubUser() {
+        Role role = new Role(2L, "User");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        return new AppUser(1L, "Ruvimbom", "Ruvimbo", "Ruvimbo", "Ruvimbom", 1, roleList);
     }
 }
