@@ -93,6 +93,7 @@ public class ListingServiceImplementationTest {
 
     @Test
     void editListingTest() {
+        when(listingRepository.getListingById(anyLong())).thenReturn(stubListing());
 
         listingService.editListing(1L,stubListing());
 
