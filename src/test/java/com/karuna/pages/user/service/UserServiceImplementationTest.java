@@ -2,6 +2,7 @@ package com.karuna.pages.user.service;
 
 import com.karuna.pages.core.config.ThreadLocalContextUtil;
 import com.karuna.pages.role.model.Role;
+import com.karuna.pages.role.repository.RoleRepository;
 import com.karuna.pages.user.model.AppUser;
 import com.karuna.pages.user.repository.UserRepository;
 import org.junit.Assert;
@@ -21,6 +22,9 @@ import static org.mockito.Mockito.*;
 public class UserServiceImplementationTest {
     @Mock
     UserRepository userRepository;
+
+    @Mock
+    RoleRepository roleRepository;
 
     @InjectMocks
     UserServiceImplementation userService;
@@ -197,6 +201,38 @@ public class UserServiceImplementationTest {
 
             }else {
                 Assert.fail("BadRequestException should have been thrown with message : " + "User must have at least one role");
+            }
+        }
+    }
+
+    @Test
+    void editUserWrongEnabledValueShouldFailTest(){
+
+        Role role = new Role(1L,"SUPER_ADMIN");
+
+        AppUser user1 = new AppUser(1L,"username","firstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+        AppUser user2 = new AppUser(1L,"username","newFirstName", "lastName",
+                "joker", 1, null);
+        user2.setId(null);
+        user2.setFirstName("newFirstName");
+        user2.setEnabled(5);
+
+        AppUser user3 = new AppUser(1L,"username","newFirstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+
+        when(userRepository.getUserById(1L)).thenReturn(user1);
+        when(userRepository.saveAndFlush(any(AppUser.class))).thenReturn(user3);
+        when(roleRepository.getRoleById(any(Long.class))).thenReturn(role);
+
+        try {
+            AppUser user = userService.editUser(user2, 1L);
+        }catch (Exception exception){
+            if(exception.getMessage().equals("Value enabled can only be 0 or 1")){
+                // test has passed
+
+            }else {
+                Assert.fail("BadRequestException should have been thrown with message : " + "Value enabled can only be 0 or 1");
             }
         }
     }
