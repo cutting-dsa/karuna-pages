@@ -1,9 +1,12 @@
 package com.karuna.pages.review.service;
 
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.review.repository.ReviewRepository;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,7 +64,15 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public Review editReview(Review review) {
+    public Review editReview(Long id,Review review) {
+
+        if(id == null) throw new BadRequestException("Review id cannot be null");
+
+        if(review == null) return null;
+
+        Review savedReview = reviewRepository.getReviewById(id);
+
+        if(savedReview == null) throw new ResourceNotFoundException("Review with id " + id + " not found");
 
         return reviewRepository.save(review);
     }

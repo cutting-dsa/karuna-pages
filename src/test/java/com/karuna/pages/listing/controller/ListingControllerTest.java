@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -114,13 +113,13 @@ public class ListingControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        when(listingService.editListing(any(Listing.class))).thenReturn(stubListing());
+        when(listingService.editListing(anyLong(),any(Listing.class))).thenReturn(stubListing());
 
-        Listing response = listingController.editListing(stubListing());
+        Listing response = listingController.editListing(1L,stubListing());
 
         assertThat(response.getListingname()).isEqualTo(stubListing().getListingname());
 
-        verify(listingService, times(1)).editListing(any(Listing.class));
+        verify(listingService, times(1)).editListing(anyLong(),any(Listing.class));
     }
 
     @Test

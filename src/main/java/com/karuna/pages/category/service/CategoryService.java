@@ -15,7 +15,7 @@ public interface CategoryService {
 
     Category saveCategory(Category category);
 
-    Category editCategory(Category category);
+    Category editCategory(Long id,Category category);
 
     Category disbaleCategory(Long id);
 }

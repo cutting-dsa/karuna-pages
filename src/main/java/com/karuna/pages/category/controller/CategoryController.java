@@ -28,9 +28,9 @@ public class CategoryController {
         return categoryService.saveCategory(category);
     }
 
-    @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
-    public Category editCategory(@RequestBody Category category){
-        return categoryService.editCategory(category);
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    public Category editCategory(@PathVariable Long id, @RequestBody Category category){
+        return categoryService.editCategory(id,category);
     }
 
     @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")

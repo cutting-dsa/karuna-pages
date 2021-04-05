@@ -57,7 +57,7 @@ public class CategoryServiceImplementationTest {
     void saveCategoryTest() {
 
         Category category1 = new Category(1L,"Education",1);
-
+        when(categoryRepository.getCategoryById(anyLong())).thenReturn(category1);
         categoryService.saveCategory(category1);
 
         verify(categoryRepository, times(1)).save(category1);
@@ -66,8 +66,8 @@ public class CategoryServiceImplementationTest {
     @Test
     void editCategoryTest() {
         Category category1 = new Category(1L,"Education",1);
-
-        categoryService.editCategory(category1);
+        when(categoryRepository.getCategoryById(anyLong())).thenReturn(category1);
+        categoryService.editCategory(1L,category1);
 
         verify(categoryRepository, times(1)).save(category1);
     }

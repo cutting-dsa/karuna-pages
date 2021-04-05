@@ -20,9 +20,9 @@ public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     Listing getListingById(Long id);
 
-    Listing getListingByListingname(String name);
+    Collection<Listing> findListingByListingname(String name);
 
 
-    @Query("SELECT l FROM Listing l WHERE l.listingname = :keyword")
+    @Query("SELECT l FROM Listing l WHERE l.listingname LIKE %:keyword%")
     Collection<Listing> searchListing(@Param("keyword")String keyword);
 }

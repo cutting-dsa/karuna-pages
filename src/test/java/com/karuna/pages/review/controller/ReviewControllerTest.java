@@ -126,13 +126,13 @@ public class ReviewControllerTest {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 
-        when(reviewService.editReview(any(Review.class))).thenReturn(stubReview());
+        when(reviewService.editReview(anyLong(),any(Review.class))).thenReturn(stubReview());
 
-        Review response = reviewController.editReview(stubReview());
+        Review response = reviewController.editReview(1L,stubReview());
 
         assertThat(response.getComment()).isEqualTo(stubReview().getComment());
 
-        verify(reviewService, times(1)).editReview(any(Review.class));
+        verify(reviewService, times(1)).editReview(anyLong(),any(Review.class));
     }
 
     @Test

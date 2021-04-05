@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -95,7 +94,7 @@ public class ListingServiceImplementationTest {
     @Test
     void editListingTest() {
 
-        listingService.editListing(stubListing());
+        listingService.editListing(1L,stubListing());
 
         verify(listingRepository, times(1)).save(any(Listing.class));
     }

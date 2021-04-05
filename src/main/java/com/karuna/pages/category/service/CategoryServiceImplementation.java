@@ -2,6 +2,9 @@ package com.karuna.pages.category.service;
 
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.category.repository.CategoryRepository;
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.ResourceNotFoundException;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +32,14 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
-    public Category editCategory(Category category) {
+    public Category editCategory(Long id, Category category) {
+        if(id == null) throw new BadRequestException("Category id cannot be null");
+
+        if(category == null) return null;
+
+        Category savedCategory = categoryRepository.getCategoryById(id);
+
+        if(savedCategory == null) throw new ResourceNotFoundException("Category with id " + id + " not found");
 
         return categoryRepository.save(category);
     }

@@ -34,9 +34,9 @@ public class ReviewController {
         return reviewService.saveReview(review);
     }
 
-    @PostMapping(value = "/edit", consumes = "application/json", produces = "application/json")
-    public Review editReview(@RequestBody Review review){
-        return reviewService.editReview(review);
+    @PutMapping(value = "/{}", consumes = "application/json", produces = "application/json")
+    public Review editReview(@PathVariable Long id, @RequestBody Review review){
+        return reviewService.editReview(id,review);
     }
 
     @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")
