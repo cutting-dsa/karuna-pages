@@ -21,6 +21,12 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('SUPER_ADMIN')")
+    @GetMapping(path = "/user/{id}", produces = "application/json")
+    public AppUser getUser(@PathVariable Long id){
+        return userService.getUser(id);
+    }
+
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
     @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     public AppUser createUser(@RequestBody AppUser user){
         return userService.saveUser(user);
