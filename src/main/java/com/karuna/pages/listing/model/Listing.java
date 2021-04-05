@@ -81,7 +81,7 @@ public class Listing implements Serializable {
             this.setApproved(listing.approved);
 
 
-            if(listing.averageRating != this.averageRating) throw new BadRequestException("User must have at least one role");
+            if(listing.averageRating != this.averageRating) throw new BadRequestException("Can not edit average rating");
 
 
 
