@@ -93,7 +93,11 @@ public class UserServiceImplementation implements UserService{
 
     @Override
     public AppUser disableUser(Long id) {
+        if(id == null) throw new BadRequestException("User id cannot be null");
+
         AppUser user =  userRepository.getUserById(id);
+        if(user == null) throw new ResourceNotFoundException("User with id " + id + " not found");
+        user.disable();
 
         return userRepository.saveAndFlush(user);
     }

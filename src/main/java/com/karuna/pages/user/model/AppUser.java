@@ -103,4 +103,8 @@ public class AppUser implements Serializable {
 
 
     }
+
+    public void disable(){
+        this.enabled = 0;
+    }
 }
