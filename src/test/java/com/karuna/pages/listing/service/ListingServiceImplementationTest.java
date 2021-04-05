@@ -25,6 +25,9 @@ public class ListingServiceImplementationTest {
     @Mock
     ListingRepository listingRepository;
 
+    @Mock
+    Listing listing;
+
     @InjectMocks
     ListingServiceImplementation listingService;
 

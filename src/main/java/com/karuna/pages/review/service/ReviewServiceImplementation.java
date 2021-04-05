@@ -74,6 +74,7 @@ public class ReviewServiceImplementation implements ReviewService {
 
         if(savedReview == null) throw new ResourceNotFoundException("Review with id " + id + " not found");
 
+        savedReview.editReview(review);
         return reviewRepository.save(review);
     }
 

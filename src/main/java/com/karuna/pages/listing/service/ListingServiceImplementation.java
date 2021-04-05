@@ -48,6 +48,8 @@ public class ListingServiceImplementation implements ListingService {
 
         if(savedListing == null) throw new ResourceNotFoundException("Listing with id " + id + " not found");
 
+        savedListing.editListing(listing);
+
         return  listingRepository.save(listing);
     }
 

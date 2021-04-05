@@ -1,6 +1,9 @@
 package com.karuna.pages.listing.model;
 
 import com.karuna.pages.category.model.Category;
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.UnsupportedTypeException;
+import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +12,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @NoArgsConstructor
@@ -63,6 +67,24 @@ public class Listing implements Serializable {
 
     public void setListingname(String listingname) {
         this.listingname = listingname;
+    }
+
+    public void editListing(Listing listing){
+        if(listing.listingname != null) this.setListingname(listingname);
+
+        if(listing.address != null) this.setAddress(listing.address);
+
+        if(listing.active != null) this.setActive(listing.active);
+
+            if( !(listing.approved == 0 || listing.approved == 1)) throw new UnsupportedTypeException("Value Approved can only be 0 or 1");
+
+            this.setApproved(listing.approved);
+
+
+            if(listing.averageRating != this.averageRating) throw new BadRequestException("User must have at least one role");
+
+
+
     }
 
     @Override

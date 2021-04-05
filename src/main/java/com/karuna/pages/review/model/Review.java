@@ -1,5 +1,7 @@
 package com.karuna.pages.review.model;
 
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.UnsupportedTypeException;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.user.model.AppUser;
 import lombok.AllArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.sound.sampled.ReverbType;
 import java.io.Serializable;
 
 @Entity
@@ -38,6 +41,19 @@ public class Review implements Serializable {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "listing_id", referencedColumnName = "id")
     private Listing listing;
+
+
+    public void editReview(Review review){
+        if(review.comment != null) this.setComment(review.comment);
+
+        if( !(review.rating >= 0 && review.rating <=5)) throw new UnsupportedTypeException("Rating should be between 1 and 5");
+
+         this.setRating(review.rating);
+
+        if( review.reviewUser.getId() != this.reviewUser.getId()) throw new BadRequestException("Can not change review user");
+        if( review.listing.getId() != this.listing.getId()) throw new BadRequestException("Can not change review listing");
+
+    }
 
     @Override
     public String toString() {
