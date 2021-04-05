@@ -88,7 +88,7 @@ public class AppUser implements Serializable {
         if(lastName != null) this.setLastName(lastName);
 
         if (enabled != null ) {
-            if( !enabled.equals(0) || !enabled.equals(1)) throw new UnsupportedTypeException("Value enabled can only be 0 or 1");
+            if( enabled < 0 || enabled > 1) throw new UnsupportedTypeException("Value enabled can only be 0 or 1");
 
             this.setEnabled(enabled);
         }

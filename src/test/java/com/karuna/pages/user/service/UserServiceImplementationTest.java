@@ -137,4 +137,67 @@ public class UserServiceImplementationTest {
         Assert.assertEquals(user1, user);
 
     }
+
+    @Test
+    void saveUserTest(){
+        AppUser user1 = new AppUser(1L,"username","firstName", "lastName",
+                "password", 1, new ArrayList<>());
+        user1.setId(null);
+        user1.setEnabled(null);
+        AppUser user2 = new AppUser(1L,"username","firstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+        user2.setEnabled(1);
+
+        when(userRepository.save(any(AppUser.class))).thenReturn(user2);
+
+        AppUser user = userService.saveUser(user1);
+        Assert.assertEquals(user2.getEnabled(), user.getEnabled());
+    }
+
+    @Test
+    void saveUserShouldFailTest(){
+        AppUser user1 = null;
+        AppUser user2  = new AppUser();
+
+        when(userRepository.save(any(AppUser.class))).thenReturn(user2);
+        try {
+            AppUser user = userService.saveUser(user1);
+        }catch (Exception exception){
+            if(exception.getMessage().equals("No user details to save")){
+                // test has passed
+
+            }else {
+                Assert.fail("BadRequestException should have been thrown with message : " + "No user details to save");
+            }
+        }
+    }
+
+    @Test
+    void editUserNoRolesShouldFailTest(){
+
+        AppUser user1 = new AppUser(1L,"username","firstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+        AppUser user2 = new AppUser(1L,"username","newFirstName", "lastName",
+                "joker", 1, new ArrayList<>());
+        user2.setId(null);
+        user2.setFirstName("newFirstName");
+        user2.setEnabled(1);
+
+        AppUser user3 = new AppUser(1L,"username","newFirstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+
+        when(userRepository.getUserById(1L)).thenReturn(user1);
+        when(userRepository.saveAndFlush(any(AppUser.class))).thenReturn(user3);
+
+        try {
+            AppUser user = userService.editUser(user2, 1L);
+        }catch (Exception exception){
+            if(exception.getMessage().equals("User must have at least one role")){
+                // test has passed
+
+            }else {
+                Assert.fail("BadRequestException should have been thrown with message : " + "User must have at least one role");
+            }
+        }
+    }
 }

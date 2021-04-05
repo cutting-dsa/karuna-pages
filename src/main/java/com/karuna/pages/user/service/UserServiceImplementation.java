@@ -40,6 +40,8 @@ public class UserServiceImplementation implements UserService{
     @Override
     public AppUser saveUser(AppUser user) {
 
+        if(user == null) throw new BadRequestException("No user details to save");
+
         Collection<Role> userRoles = user.getRoles();
 
         Collection<Role> roles = new ArrayList<>();
