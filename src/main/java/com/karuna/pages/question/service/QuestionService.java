@@ -22,7 +22,5 @@ public interface QuestionService {
 
     Question disableQuestion(Long id);
 
-//    @Query("insert into question_answer (question_id,answer_id) values(:question)")
-   // Question answerQuestion(Question question, Answer answer);
-
+    Collection<Question> getQuestionByCategory(Long id);
 }

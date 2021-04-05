@@ -3,7 +3,6 @@ package com.karuna.pages.listing.controller;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.service.ListingService;
-import com.karuna.pages.question.model.Answer;
 import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

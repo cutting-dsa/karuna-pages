@@ -11,4 +11,6 @@ public interface AnswerService {
     Collection<Answer> getAllAnswersByQuestion(Long id);
 
     Answer save(Answer answer);
+
+    Collection<Answer> getQuestionAnswers(Long id);
 }

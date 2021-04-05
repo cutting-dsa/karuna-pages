@@ -4,6 +4,8 @@ import com.karuna.pages.category.model.Category;
 import com.karuna.pages.question.model.Question;
 import com.karuna.pages.question.service.QuestionService;
 import com.karuna.pages.review.model.Review;
+import com.karuna.pages.role.model.Role;
+import com.karuna.pages.user.model.AppUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -31,16 +33,13 @@ public class QuestionControllerTest {
     @Mock
     QuestionService questionService;
 
-    private Question stubQuestion(){
+    private Question stubQuestion() {
 
-        Category category1 = new Category(1L,"Education",1);
+        Category category1 = new Category(1L, "Education", 1);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2021,11,31,59,59,59);
+        calendar.set(2021, 11, 31, 59, 59, 59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,qDate);
-
-        return question;
-
+        return new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(), qDate);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class QuestionControllerTest {
     void getAllQuestionByCategoryTest() {
         List<Question> allQuestions = Arrays.asList(stubQuestion());
 
-        when(questionService.getQuestions(anyLong())).thenReturn(allQuestions);
+        when(questionService.getQuestionByCategory(anyLong())).thenReturn(allQuestions);
 
         Collection<Question> result = questionController.getAllQuestionByCategory(1L);
 
@@ -74,7 +73,7 @@ public class QuestionControllerTest {
 
         assertThat(resultList.get(0).getName()).isEqualTo(stubQuestion().getName());
 
-        verify(questionService, times(1)).getQuestions(anyLong());
+        verify(questionService, times(1)).getQuestionByCategory(anyLong());
     }
 
     @Test
@@ -115,5 +114,12 @@ public class QuestionControllerTest {
         assertThat(response.getName()).isEqualTo(stubQuestion().getName());
 
         verify(questionService, times(1)).editQuestion(any(Question.class));
+    }
+
+    private AppUser stubUser() {
+        Role role = new Role(2L, "User");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        return new AppUser(1L, "Ruvimbom", "Ruvimbo", "Ruvimbo", "Ruvimbom", 1, roleList);
     }
 }

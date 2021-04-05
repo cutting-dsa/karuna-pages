@@ -1,6 +1,7 @@
 package com.karuna.pages.question.model;
 
 import com.karuna.pages.category.model.Category;
+import com.karuna.pages.user.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,10 @@ public class Question implements Serializable {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "category", referencedColumnName = "id")
     private Category category;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private AppUser user;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

@@ -1,7 +1,8 @@
 package com.karuna.pages.question.service;
 
 import com.karuna.pages.category.model.Category;
-import com.karuna.pages.question.model.Answer;
+import com.karuna.pages.category.repository.CategoryRepository;
+import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.question.model.Question;
 import com.karuna.pages.question.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ public class QuestionServiceImplementation implements QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Collection<Question> getAllQuestions() {
@@ -45,8 +49,10 @@ public class QuestionServiceImplementation implements QuestionService {
         return null;
     }
 
-//    @Override
-//    public Question answerQuestion(Question question, Answer answer) {
-//        return questionRepository.answerQuestion(question, answer);
-//    }
+    @Override
+    public Collection<Question> getQuestionByCategory(Long id) {
+        Category category = categoryRepository.getCategoryById(id);
+        if (category == null) throw new ResourceNotFoundException("Question with id " + id + " not found");
+        return questionRepository.findQuestionsByCategory(category);
+    }
 }
