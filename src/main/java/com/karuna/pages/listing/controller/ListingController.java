@@ -34,19 +34,19 @@ public class ListingController {
         return listingService.getListing(id);
     }
 
-    @PreAuthorize("hasAuthority('SUPER_ADMIN, USER')")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN') or hasAuthority('USER')")
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public Listing createListing(@RequestBody Listing listing){
         return listingService.saveListing(listing);
     }
 
-    @PreAuthorize("hasAuthority('SUPER_ADMIN, USER')")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN') or hasAuthority('USER')")
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public Listing editListing(@PathVariable Long id,@RequestBody Listing listing){
         return listingService.editListing(id,listing);
     }
 
-    @PreAuthorize("hasAuthority('SUPER_ADMIN, USER')")
+    @PreAuthorize("hasAuthority('SUPER_ADMIN') or hasAuthority('USER')")
     @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")
     public Listing deleteListing(@RequestBody Long id){
         return listingService.deleteListing(id);
