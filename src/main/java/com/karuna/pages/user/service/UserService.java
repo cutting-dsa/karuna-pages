@@ -15,7 +15,7 @@ public interface UserService {
 
     AppUser saveUser(AppUser user);
 
-    AppUser editUser(AppUser user);
+    AppUser editUser(AppUser user, Long id);
 
     AppUser disableUser(Long id);
 

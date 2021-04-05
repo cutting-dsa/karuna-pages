@@ -1,6 +1,7 @@
 package com.karuna.pages.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.karuna.pages.core.exceptions.UnsupportedTypeException;
 import com.karuna.pages.role.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -78,4 +79,21 @@ public class AppUser implements Serializable {
         return builder.toString();
     }
 
+    public void editUser(String username, String firstName, String lastName, Integer enabled, String password){
+        if(username != null) this.setUsername(username);
+
+        if(firstName != null) this.setFirstName(firstName);
+
+        if(lastName != null) this.setLastName(lastName);
+
+        if (enabled != null ) {
+            if(enabled != 0 || enabled != 1) throw new UnsupportedTypeException("Value enabled can only be 0 or 1");
+
+            this.setEnabled(enabled);
+        }
+
+        if(password != null) this.setPassword(password);
+
+
+    }
 }
