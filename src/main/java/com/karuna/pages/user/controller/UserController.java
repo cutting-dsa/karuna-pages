@@ -21,11 +21,16 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('SUPER_ADMIN')")
-    @PostMapping(value = "/user/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/user", consumes = "application/json", produces = "application/json")
     public AppUser createUser(@RequestBody AppUser user){
         return userService.saveUser(user);
     }
 
+    @PreAuthorize("hasAuthority('SUPER_ADMIN')")
+    @PutMapping(value = "/user/{id}", consumes = "application/json", produces = "application/json")
+    public AppUser editUser(@RequestBody AppUser user, @PathVariable Long id){
+        return userService.editUser(user, id);
+    }
 
     @GetMapping(path = "/login", produces = "application/json")
     public AppUser login(@RequestParam String username, @RequestParam String password){

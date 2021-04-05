@@ -1,11 +1,12 @@
 package com.karuna.pages.user.service;
 
 import com.karuna.pages.core.config.ThreadLocalContextUtil;
+import com.karuna.pages.core.exceptions.BadRequestException;
+import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.role.repository.RoleRepository;
 import com.karuna.pages.user.model.AppUser;
 import com.karuna.pages.user.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,8 +57,24 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
-    public AppUser editUser(AppUser user) {
-        return userRepository.saveAndFlush(user);
+    public AppUser editUser(AppUser user, Long id)  {
+
+        if(id == null) throw new BadRequestException("User id cannot be null");
+
+        if(user == null) return null;
+
+        AppUser savedUser = userRepository.getUserById(id);
+
+        if(savedUser == null) throw new ResourceNotFoundException("User with id " + id + " not found");
+
+        String password = null;
+        if(user.getPassword() != null) {
+            password = bCryptPasswordEncoder.encode(user.getPassword());
+        }
+
+        savedUser.editUser(user.getUsername(), user.getFirstName(), user.getLastName(), user.getEnabled(), password);
+
+        return userRepository.saveAndFlush(savedUser);
     }
 
     @Override
