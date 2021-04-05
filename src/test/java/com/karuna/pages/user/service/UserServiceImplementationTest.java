@@ -143,6 +143,30 @@ public class UserServiceImplementationTest {
     }
 
     @Test
+    void saveUserWithRolesTest(){
+        Collection<Role> roles = new ArrayList<>();
+        roles.add(new Role(1L,"SUPER_ADMIN"));
+        roles.add(new Role(2L,"VISITOR"));
+
+        Role role = new Role(1L,"SUPER_ADMIN");
+
+        AppUser user1 = new AppUser(1L,"username","firstName", "lastName",
+                "password", 1, roles);
+        user1.setId(null);
+        user1.setEnabled(null);
+        AppUser user2 = new AppUser(1L,"username","firstName", "lastName",
+                "$2a$10$oiFjEXUH6AbAr3tpZIcpdu/kqJ/w0Gu0EVNO3vHN97a1JqON6vo/6", 1, new ArrayList<>());
+        user2.setEnabled(1);
+
+        when(userRepository.save(any(AppUser.class))).thenReturn(user2);
+        when(roleRepository.getRoleById(any(Long.class))).thenReturn(role);
+
+        AppUser user = userService.saveUser(user1);
+        Assert.assertEquals(user2.getEnabled(), user.getEnabled());
+        verify(roleRepository, atLeastOnce()).getRoleById(any(Long.class));
+    }
+
+    @Test
     void saveUserTest(){
         AppUser user1 = new AppUser(1L,"username","firstName", "lastName",
                 "password", 1, new ArrayList<>());
