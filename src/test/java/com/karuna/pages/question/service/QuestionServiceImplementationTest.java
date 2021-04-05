@@ -36,7 +36,7 @@ public class QuestionServiceImplementationTest {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2021,11,31,59,59,59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,qDate);
+        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,stubUser(),qDate);
 
         return question;
 
@@ -101,6 +101,13 @@ public class QuestionServiceImplementationTest {
         questionService.editQuestion(stubQuestion());
 
         verify(questionRepository, times(1)).save(any(Question.class));
+    }
+
+    private AppUser stubUser() {
+        Role role = new Role(2L, "User");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        return new AppUser(1L, "Ruvimbom", "Ruvimbo", "Ruvimbo", "Ruvimbom", 1, roleList);
     }
 
 }

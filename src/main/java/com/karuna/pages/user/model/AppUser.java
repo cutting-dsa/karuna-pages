@@ -1,6 +1,7 @@
 package com.karuna.pages.user.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.UnsupportedTypeException;
 import com.karuna.pages.role.model.Role;
 import lombok.AllArgsConstructor;
@@ -79,7 +80,7 @@ public class AppUser implements Serializable {
         return builder.toString();
     }
 
-    public void editUser(String username, String firstName, String lastName, Integer enabled, String password){
+    public void editUser(String username, String firstName, String lastName, Integer enabled, String password, Collection<Role> roles){
         if(username != null) this.setUsername(username);
 
         if(firstName != null) this.setFirstName(firstName);
@@ -87,12 +88,18 @@ public class AppUser implements Serializable {
         if(lastName != null) this.setLastName(lastName);
 
         if (enabled != null ) {
-            if(enabled != 0 || enabled != 1) throw new UnsupportedTypeException("Value enabled can only be 0 or 1");
+            if( !enabled.equals(0) || !enabled.equals(1)) throw new UnsupportedTypeException("Value enabled can only be 0 or 1");
 
             this.setEnabled(enabled);
         }
 
         if(password != null) this.setPassword(password);
+
+        if(roles != null) {
+
+            if(roles.isEmpty())  throw new BadRequestException("User must have at least one role");
+            this.setRoles(roles);
+        }
 
 
     }

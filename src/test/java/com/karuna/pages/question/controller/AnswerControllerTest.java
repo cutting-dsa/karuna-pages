@@ -36,26 +36,27 @@ class AnswerControllerTest {
     @Mock
     AnswerService answerService;
 
-    private Answer stubAnswer(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2021,11,31,59,59,59);
-        Date qDate = calendar.getTime();
-        Role role = new Role(2L,"User");
+    private AppUser stubUser() {
+        Role role = new Role(2L, "User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
-        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Answer answer = new Answer(1L,"Yes they are available",appUser,stubQuestion(),qDate);
-
-        return answer;
-
+        return new AppUser(1L, "Ruvimbom", "Ruvimbo", "Ruvimbo", "Ruvimbom", 1, roleList);
     }
-    private Question stubQuestion(){
 
-        Category category1 = new Category(1L,"Education",1);
+    private Answer stubAnswer() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2021,11,31,59,59,59);
+        calendar.set(2021, 11, 31, 59, 59, 59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,qDate);
+        return new Answer(1L, "Yes they are available", stubUser(), stubQuestion(), qDate);
+    }
+
+    private Question stubQuestion() {
+
+        Category category1 = new Category(1L, "Education", 1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021, 11, 31, 59, 59, 59);
+        Date qDate = calendar.getTime();
+        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(), qDate);
 
         return question;
 
@@ -79,7 +80,7 @@ class AnswerControllerTest {
     void getQuestionAnswers() {
         List<Answer> allAnswers = Arrays.asList(stubAnswer());
 
-        when(answerService.getAllAnswersByQuestion(anyLong())).thenReturn(allAnswers);
+        when(answerService.getQuestionAnswers(anyLong())).thenReturn(allAnswers);
 
         Collection<Answer> result = answerController.getQuestionAnswers(1L);
 
@@ -89,6 +90,6 @@ class AnswerControllerTest {
 
         assertThat(resultList.get(0).getAnswer()).isEqualTo(stubAnswer().getAnswer());
 
-        verify(answerService, times(1)).getAllAnswersByQuestion(anyLong());
+        verify(answerService, times(1)).getQuestionAnswers(anyLong());
     }
 }

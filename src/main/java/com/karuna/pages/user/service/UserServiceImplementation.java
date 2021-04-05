@@ -72,7 +72,21 @@ public class UserServiceImplementation implements UserService{
             password = bCryptPasswordEncoder.encode(user.getPassword());
         }
 
-        savedUser.editUser(user.getUsername(), user.getFirstName(), user.getLastName(), user.getEnabled(), password);
+        Collection<Role> newRoles = user.getRoles();
+        Collection<Role> roles = new ArrayList<>();
+
+        if(newRoles != null){
+            if(newRoles.isEmpty()) throw new BadRequestException("User must have at least one role");
+
+            for(Role role: newRoles){
+                if(role.getId() == null) throw new BadRequestException("Role id cannot be null");
+                Role roleE = roleRepository.getRoleById(role.getId());
+                roles.add(roleE);
+            }
+
+        }
+
+        savedUser.editUser(user.getUsername(), user.getFirstName(), user.getLastName(), user.getEnabled(), password, roles);
 
         return userRepository.saveAndFlush(savedUser);
     }
