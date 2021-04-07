@@ -19,13 +19,13 @@ public class CategoryController {
     public Collection<Category> getAll(){
         return categoryService.getAllCategories();
     }
-    @GetMapping(path = "/getone", produces = "application/json")
-    public Category getOne(Long id){
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public Category getOne(@PathVariable  Long id){
         return categoryService.getCategory(id);
     }
 
     @PreAuthorize("hasAuthority('SUPER_ADMIN') or hasAuthority('USER')")
-    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "", consumes = "application/json", produces = "application/json")
     public Category createCategory(@RequestBody Category category){
         System.out.println("Values be like: " + category.toString());
         return categoryService.saveCategory(category);
@@ -37,8 +37,8 @@ public class CategoryController {
         return categoryService.editCategory(id,category);
     }
 
-    @PostMapping(value = "/delete", consumes = "application/json", produces = "application/json")
-    public Category deleteCategory(@RequestBody Long id){
+    @PostMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    public Category deleteCategory(@PathVariable Long id){
         return categoryService.disbaleCategory(id);
     }
 
