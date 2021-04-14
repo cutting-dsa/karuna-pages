@@ -5,6 +5,7 @@ import com.karuna.pages.question.model.Question;
 
 import java.util.function.BiFunction;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,8 +15,8 @@ public class QuestionAnswerUtil {
                     .collect(Collectors.toList());
 
 
-    static BiFunction<List<Answer>, Integer, Optional<Question>> getMostAnsweredQuestion =
-            (answers, k) -> getQuestionStream(answers, k)
+    static Function<List<Answer>, Optional<Question>> getMostAnsweredQuestion =
+            (answers) -> getQuestionStream(answers, 1)
                     .findFirst();
 
     private static Stream<Question> getQuestionStream(List<Answer> answers, Integer k) {

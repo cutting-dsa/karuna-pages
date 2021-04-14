@@ -43,11 +43,11 @@ public class AnswerServiceImplementation implements AnswerService {
     }
 
     public Question mostAnsweredQuestion() {
-        Optional<Question> popularQuestion = QuestionAnswerUtil.getMostAnsweredQuestion.apply(answerRepository.findAll(), 1);
-        return popularQuestion.orElse(null);
+        Optional<Question> popularQuestion = QuestionAnswerUtil.getMostAnsweredQuestion.apply(answerRepository.findAll());
+        return popularQuestion.orElseThrow(() -> new ResourceNotFoundException("Question not found at the moment"));
     }
 
-    public List<Question> mostAnsweredQuestions() {
-        return QuestionAnswerUtil.computeMostAnsweredQuestions.apply(answerRepository.findAll(), 3);
+    public List<Question> mostAnsweredQuestions(Integer count) {
+        return QuestionAnswerUtil.computeMostAnsweredQuestions.apply(answerRepository.findAll(), count);
     }
 }

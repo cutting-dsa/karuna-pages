@@ -18,5 +18,5 @@ public interface AnswerService {
 
     Question mostAnsweredQuestion();
 
-    List<Question> mostAnsweredQuestions();
+    List<Question> mostAnsweredQuestions(Integer count);
 }
