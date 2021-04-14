@@ -28,13 +28,7 @@ public class ReviewReportsController {
     @GetMapping(path = "/bestreviewers/{number}", produces = "application/json")
     public Collection<AppUser> getTopReviewers(@PathVariable Long number) {
 
-        System.out.println("Number: " + number);
         List<Listing> allListings = listingService.getAllListings();
-        allListings.forEach(listing -> {
-            List<Review> allReviews = reviewService.getAllReviewsByListing(listing);
-            listing.setReviewList(allReviews);
-        });
-
 
         return TOP_K_REVIEWERS.apply(allListings, number);
     }
