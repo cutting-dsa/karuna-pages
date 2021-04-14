@@ -5,13 +5,14 @@ import com.karuna.pages.review.model.Review;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public interface ReviewService {
 
     Collection<Review> getAllReview();
 
-    Collection<Review> getAllReviewsByListing(Listing listing);
+    List<Review> getAllReviewsByListing(Listing listing);
 
     Review getReview(Long id);
 

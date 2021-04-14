@@ -15,7 +15,7 @@ import java.util.List;
 public interface ListingRepository extends JpaRepository<Listing, Long> {
 
     Collection<Listing> findAllByCategoryAndActive(Category category, int active);
-    Collection<Listing> findAllByActive(int active);
+    List<Listing> findAllByActive(int active);
     Collection<Listing> findAllByListinguser(AppUser id);
 
     Listing getListingById(Long id);

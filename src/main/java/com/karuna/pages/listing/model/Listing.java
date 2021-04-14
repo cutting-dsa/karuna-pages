@@ -3,16 +3,18 @@ package com.karuna.pages.listing.model;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.UnsupportedTypeException;
-import com.karuna.pages.role.model.Role;
+import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -61,6 +63,11 @@ public class Listing implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     private Category category;
 
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JoinColumn(name = "reviews", referencedColumnName = "id")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Review> reviewList;
+
     public String getListingname() {
         return listingname;
     }
@@ -68,6 +75,8 @@ public class Listing implements Serializable {
     public void setListingname(String listingname) {
         this.listingname = listingname;
     }
+
+
 
     public void editListing(Listing listing){
         if(listing.listingname != null) this.setListingname(listingname);
