@@ -44,4 +44,8 @@ public class ReviewReportsController {
         return reviewService.getCommentsOfLowestRatings(count, rating);
     }
 
+    @GetMapping(path = "/low-listing-owners/{rating}")
+    public Collection<AppUser> getOwnersOfLowestRatings(@PathVariable Long rating) {
+        return reviewService.getOwnersOfListingsWithLowReviews(rating);
+    }
 }

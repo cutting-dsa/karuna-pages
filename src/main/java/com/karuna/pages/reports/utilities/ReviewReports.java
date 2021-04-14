@@ -26,12 +26,20 @@ public class ReviewReports {
                     .collect(Collectors.toList()));
 
     public static TriFunction<List<Review>, Long, Double, List<String>> reviewCommentsOfLowestRatingListings =
-            (reviews, topK, avgRating) ->
+            (reviews, topK, rating) ->
                     reviews.stream()
-                            .filter(review -> review.getRating() < avgRating)
+                            .filter(review -> review.getRating() < rating)
                             .map(Review::getComment)
                             .limit(topK)
                             .collect(Collectors.toList());
 
 
+    public static BiFunction<List<Review>, Long, List<AppUser>> ownersOfListingsWithLowReviews =
+            (reviews, rating) ->
+                    reviews.stream()
+                            .filter(review -> review.getRating() < rating)
+                            .map(Review::getListing)
+                            .map(Listing::getListinguser)
+                            .distinct()
+                            .collect(Collectors.toList());
 }
