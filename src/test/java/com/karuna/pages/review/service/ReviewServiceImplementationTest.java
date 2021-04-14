@@ -39,11 +39,9 @@ public class ReviewServiceImplementationTest {
         Category category1 = new Category(1L,"Education",1);
         Role role = new Role(2L,"User");
         List<Role> roleList = new ArrayList<>();
-        List<Review> reviewList = new ArrayList<>();
-        reviewList.add(stubReview());
         roleList.add(role);
         AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1,reviewList);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1,null);
 
         return listing;
 

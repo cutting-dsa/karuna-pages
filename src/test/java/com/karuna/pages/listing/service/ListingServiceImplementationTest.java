@@ -38,10 +38,8 @@ public class ListingServiceImplementationTest {
         Role role = new Role(2L,"User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
-        List<Review> reviewList = new ArrayList<>();
-        reviewList.add(stubReview());
         AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1,reviewList);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1,null);
 
         return listing;
 

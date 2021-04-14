@@ -10,11 +10,12 @@ import java.util.stream.Collectors;
 
 public class ReviewReports {
 
+
 public static final BiFunction<List<Listing>,Long, List<AppUser>>
 
     TOP_K_REVIEWERS = ( (listings, k) ->
         listings.stream()
-        .flatMap(listing -> listing.getReviewList().stream())
+        .flatMap(listing ->   listing.getReviewList().stream())
         .collect(Collectors.groupingBy(review -> review.getReviewUser()))
         .entrySet()
         .stream()
