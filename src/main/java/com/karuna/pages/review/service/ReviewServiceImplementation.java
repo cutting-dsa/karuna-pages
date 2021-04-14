@@ -4,14 +4,15 @@ import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
+import com.karuna.pages.reports.utilities.ReviewReports;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.review.repository.ReviewRepository;
-import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ReviewServiceImplementation implements ReviewService {
@@ -33,7 +34,7 @@ public class ReviewServiceImplementation implements ReviewService {
 
     @Override
     public List<Review> getAllReviewsByListing(Listing listing) {
-        return reviewRepository.findAllByListingAndStatus(listing,1);
+        return reviewRepository.findAllByListingAndStatus(listing, 1);
     }
 
     @Override
@@ -49,14 +50,14 @@ public class ReviewServiceImplementation implements ReviewService {
         count = 0;
         Review review1 = reviewRepository.save(review);
         Listing listing = listingRepository.getListingById(review.getListing().getId());
-        Collection<Review>  Reviews = reviewRepository.findAllByListingAndStatus(listing,1);
+        Collection<Review> Reviews = reviewRepository.findAllByListingAndStatus(listing, 1);
         Reviews.forEach(e -> {
             totalRating += e.getRating();
             count++;
             System.out.println("totalRating: " + totalRating);
             System.out.println("count: " + count);
         });
-        averageRating = totalRating/count;
+        averageRating = totalRating / count;
         System.out.println("count: " + averageRating);
         listing.setAverageRating(averageRating);
         listingRepository.save(listing);
@@ -64,15 +65,15 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public Review editReview(Long id,Review review) {
+    public Review editReview(Long id, Review review) {
 
-        if(id == null) throw new BadRequestException("Review id cannot be null");
+        if (id == null) throw new BadRequestException("Review id cannot be null");
 
-        if(review == null) return null;
+        if (review == null) return null;
 
         Review savedReview = reviewRepository.getReviewById(id);
 
-        if(savedReview == null) throw new ResourceNotFoundException("Review with id " + id + " not found");
+        if (savedReview == null) throw new ResourceNotFoundException("Review with id " + id + " not found");
 
         savedReview.editReview(review);
         return reviewRepository.save(review);
@@ -80,10 +81,14 @@ public class ReviewServiceImplementation implements ReviewService {
 
     @Override
     public Review deleteReview(Long id) {
-        Review review =  reviewRepository.getReviewById(id);
-         review.setStatus(0);
+        Review review = reviewRepository.getReviewById(id);
+        review.setStatus(0);
         reviewRepository.save(review);
         return review;
     }
 
+    @Override
+    public List<String> getCommentsOfLowestRatings(Long count, Double rating) {
+        return ReviewReports.reviewCommentsOfLowestRatingListings.apply(reviewRepository.findAll(), count, rating);
+    }
 }

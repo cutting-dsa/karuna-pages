@@ -102,8 +102,8 @@ class AnswerControllerTest {
 
     @Test
     void mostAnsweredQuestionsTest() {
-        when(answerService.mostAnsweredQuestions()).thenReturn(Arrays.asList(stubQuestion()));
-        List<Question> popularQuestions = answerService.mostAnsweredQuestions();
+        when(answerService.mostAnsweredQuestions(1)).thenReturn(Arrays.asList(stubQuestion()));
+        List<Question> popularQuestions = answerService.mostAnsweredQuestions(1);
         assertEquals(Arrays.asList(stubQuestion()).size(), popularQuestions.size());
     }
 }
