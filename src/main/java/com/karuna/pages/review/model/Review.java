@@ -38,8 +38,8 @@ public class Review implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser reviewUser;
 
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "listing_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+   // @JoinColumn(name = "listing_id", referencedColumnName = "id")
     private Listing listing;
 
 

@@ -3,6 +3,7 @@ package com.karuna.pages.question.repository;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.question.model.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -18,7 +18,9 @@ public interface ReviewService {
 
     Review saveReview(Review review);
 
-    Review editReview(Long id,Review review);
+    Review editReview(Long id, Review review);
 
     Review deleteReview(Long id);
+
+    List<String> getCommentsOfLowestRatings(Long count, Double rating);
 }
