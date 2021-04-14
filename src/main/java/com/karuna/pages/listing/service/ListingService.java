@@ -6,11 +6,12 @@ import com.karuna.pages.user.model.AppUser;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public interface ListingService {
 
-    Collection<Listing> getAllListings();
+    List<Listing> getAllListings();
     Collection<Listing> searchListing(String keyword);
 
     Collection<Listing> getAllListingsByCategory(Category category);

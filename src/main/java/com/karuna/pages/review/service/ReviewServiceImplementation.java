@@ -32,7 +32,7 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public Collection<Review> getAllReviewsByListing(Listing listing) {
+    public List<Review> getAllReviewsByListing(Listing listing) {
         return reviewRepository.findAllByListingAndStatus(listing,1);
     }
 

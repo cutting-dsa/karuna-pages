@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 @Component
 public class ListingServiceImplementation implements ListingService {
@@ -19,7 +20,7 @@ public class ListingServiceImplementation implements ListingService {
     private ListingRepository listingRepository;
 
     @Override
-    public Collection<Listing> getAllListings() {
+    public List<Listing> getAllListings() {
         return listingRepository.findAllByActive(1);
     }
 

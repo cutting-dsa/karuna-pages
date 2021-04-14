@@ -3,6 +3,7 @@ package com.karuna.pages.listing.service;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
+import com.karuna.pages.review.model.Review;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
 import org.junit.Assert;
@@ -38,9 +39,20 @@ public class ListingServiceImplementationTest {
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
         AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser,category1,null);
 
         return listing;
+
+    }
+
+    private Review stubReview(){
+        Role role = new Role(2L,"User");
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
+        Review review = new Review(1L,"This is my comment",4,1,appUser,stubListing());
+
+        return review;
 
     }
 
