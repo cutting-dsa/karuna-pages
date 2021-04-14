@@ -1,7 +1,6 @@
 package com.karuna.pages.user.service;
 
 import com.karuna.pages.user.model.AppUser;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

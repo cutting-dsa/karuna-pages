@@ -42,6 +42,8 @@ public class UserServiceImplementation implements UserService{
 
         if(user == null) throw new BadRequestException("No user details to save");
 
+        if(user.getPassword() == null) throw new BadRequestException("User must have a passwrod");
+
         Collection<Role> userRoles = user.getRoles();
 
         Collection<Role> roles = new ArrayList<>();
