@@ -5,8 +5,6 @@ import com.karuna.pages.listing.service.ListingService;
 
 import static com.karuna.pages.reports.utilities.ReviewReports.*;
 
-import com.karuna.pages.reports.utilities.ReviewReports;
-import com.karuna.pages.review.model.Review;
 import com.karuna.pages.review.service.ReviewService;
 import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
