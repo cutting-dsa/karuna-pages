@@ -25,4 +25,6 @@ public static final BiFunction<List<Listing>,Long, List<AppUser>>
         .collect(Collectors.toList())
 
             );
+
+
 }
