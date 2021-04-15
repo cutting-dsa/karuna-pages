@@ -7,12 +7,12 @@ import com.karuna.pages.listing.repository.ListingRepository;
 import com.karuna.pages.reports.utilities.ReviewReports;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.review.repository.ReviewRepository;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ReviewServiceImplementation implements ReviewService {
@@ -90,5 +90,10 @@ public class ReviewServiceImplementation implements ReviewService {
     @Override
     public List<String> getCommentsOfLowestRatings(Long count, Double rating) {
         return ReviewReports.reviewCommentsOfLowestRatingListings.apply(reviewRepository.findAll(), count, rating);
+    }
+
+    @Override
+    public List<AppUser> getOwnersOfListingsWithLowReviews(Long rating) {
+        return ReviewReports.ownersOfListingsWithLowReviews.apply(reviewRepository.findAll(), rating);
     }
 }
