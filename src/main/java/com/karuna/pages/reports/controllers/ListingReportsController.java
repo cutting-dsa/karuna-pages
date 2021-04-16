@@ -1,5 +1,6 @@
 package com.karuna.pages.reports.controllers;
 
+import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.service.ListingService;
 import com.karuna.pages.review.service.ReviewService;
@@ -27,5 +28,15 @@ public class ListingReportsController {
     @GetMapping(path = "/bestperformadmin/{number}", produces = "application/json")
     public List<AppUser> getUserWhoseListingIsBestReviewed(@PathVariable Long number){
         return listingService.getUserWhoseListingIsBestReviewed(number);
+    }
+
+    @GetMapping(path = "/userwithlowestaveragerating/{number}", produces = "application/json")
+    public List<AppUser> getUsersWhoGaveLeastAverageRatingOnListings(@PathVariable Long number){
+        return listingService.getUsersWhoGaveLeastAverageRatingOnListings(number);
+    }
+
+    @GetMapping(path = "/mostpopularcategory/{limit}", produces = "application/json")
+    public Collection<Category> getMostPopularCategories(@PathVariable Long limit){
+        return listingService.getMostPopularCategory(limit);
     }
 }
