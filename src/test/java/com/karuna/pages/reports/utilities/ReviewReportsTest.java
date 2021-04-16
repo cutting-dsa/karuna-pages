@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ReviewReportsTest {
 
@@ -36,7 +35,17 @@ public class ReviewReportsTest {
 
         Optional<Category> result = ReviewReports.LOW_RATED_CATEGORY.apply(factory.listings());
 
-        Assert.assertEquals(Optional.of(factory.stubCategory()),result);
+        Assert.assertEquals(factory.stubCategory().getName(),result.get().getName());
+
+    }
+
+    @Test
+    public void mostAnsweringUserTest(){
+
+        Optional<AppUser> result = ReviewReports.MOST_ANSWERING_USER_PER_CATEGORY
+                .apply(factory.questions(),factory.stubCategory());
+
+        Assert.assertEquals(factory.stubUser2().getFirstName(),result.get().getFirstName());
 
     }
 

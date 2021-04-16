@@ -2,11 +2,15 @@ package com.karuna.pages.reports;
 
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
+import com.karuna.pages.question.model.Answer;
+import com.karuna.pages.question.model.Question;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Factory {
@@ -108,4 +112,61 @@ public class Factory {
         return new Category(2L, "Retailware", 1);
     }
 
+    private Question stubQuestion(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021,11,31,59,59,59);
+        Date qDate = calendar.getTime();
+        Question question = new Question(1L,"Which programs are offered at Maharishi",true,stubCategory(),stubUser(),answers(),qDate);
+
+        return question;
+
+    }
+
+    private Answer stubAnswer() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021, 11, 31, 59, 59, 59);
+        Date qDate = calendar.getTime();
+        Answer answer = new Answer(1L, "Yes they are available", stubUser2(), null, qDate);
+
+        return answer;
+
+    }
+
+    private Answer stubAnswer2() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021, 11, 31, 59, 59, 59);
+        Date qDate = calendar.getTime();
+        Answer answer = new Answer(1L, "Yes they are available", stubUser(), null, qDate);
+
+        return answer;
+
+    }
+
+    private Answer stubAnswer3() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021, 11, 31, 59, 59, 59);
+        Date qDate = calendar.getTime();
+        Answer answer = new Answer(1L, "Yes they are available", stubUser2(), null, qDate);
+
+        return answer;
+
+    }
+
+    public List<Answer> answers(){
+
+        List<Answer> answers = new ArrayList<>();
+        answers.add(stubAnswer());
+        answers.add(stubAnswer2());
+        answers.add(stubAnswer3());
+
+        return answers;
+    }
+
+    public List<Question> questions(){
+
+        List<Question> questions = new ArrayList<>();
+        questions.add(stubQuestion());
+
+        return questions;
+    }
 }

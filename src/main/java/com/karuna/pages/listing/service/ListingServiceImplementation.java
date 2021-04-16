@@ -5,6 +5,8 @@ import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.listing.repository.ListingRepository;
+import com.karuna.pages.question.model.Question;
+import com.karuna.pages.question.repository.QuestionRepository;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +15,16 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 
-import static com.karuna.pages.reports.utilities.ListingReports.TOP_K_USER_WITH_BEST_RATED_LISTING;
+import static com.karuna.pages.reports.utilities.ListingReports.*;
 
 @Component
 public class ListingServiceImplementation implements ListingService {
 
     @Autowired
     private ListingRepository listingRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Override
     public List<Listing> getAllListings() {
@@ -87,13 +92,23 @@ public class ListingServiceImplementation implements ListingService {
     public List<AppUser> getUserWhoseListingIsBestReviewed(Long number) {
         List<Listing> allListings = listingRepository.findAll();
 
-        /*allListings.forEach(listing -> {
-            List<Review> allReviews = reviewService.getAllReviewsByListing(listing);
-            listing.setReviewList(allReviews);
-        });*/
-
-
         return TOP_K_USER_WITH_BEST_RATED_LISTING.apply(allListings,number);
     }
+
+    @Override
+    public List<AppUser> getUsersWhoGaveLeastAverageRatingOnListings(Long number) {
+        List<Listing> allListings = listingRepository.findAll();
+
+        return USERS_WHO_GAVE_LEAST_AVERAGE_RATING_ON_LISTINGS.apply(allListings, number);
+    }
+
+    @Override
+    public List<Category> getMostPopularCategory(Long number) {
+        List<Listing> allListings = listingRepository.findAll();
+        List<Question> allQuestions = questionRepository.findAll();
+
+        return MOST_POPULAR_CATEGORY.apply(allListings, allQuestions, number);
+    }
+
 
 }

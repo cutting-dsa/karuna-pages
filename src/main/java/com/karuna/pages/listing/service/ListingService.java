@@ -31,4 +31,8 @@ public interface ListingService {
 
     List<AppUser> getUserWhoseListingIsBestReviewed(Long number);
 
+    List<AppUser> getUsersWhoGaveLeastAverageRatingOnListings(Long number);
+
+    List<Category> getMostPopularCategory(Long number);
+
 }
