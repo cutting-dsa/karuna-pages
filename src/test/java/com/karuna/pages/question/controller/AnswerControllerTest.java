@@ -92,18 +92,4 @@ class AnswerControllerTest {
 
         verify(answerService, times(1)).getQuestionAnswers(anyLong());
     }
-
-    @Test
-    void mostAnsweredQuestionTest() {
-        when(answerService.mostAnsweredQuestion()).thenReturn(stubQuestion());
-        Question popular = answerService.mostAnsweredQuestion();
-        assertEquals(stubQuestion().getId(), popular.getId());
-    }
-
-    @Test
-    void mostAnsweredQuestionsTest() {
-        when(answerService.mostAnsweredQuestions(1)).thenReturn(Arrays.asList(stubQuestion()));
-        List<Question> popularQuestions = answerService.mostAnsweredQuestions(1);
-        assertEquals(Arrays.asList(stubQuestion()).size(), popularQuestions.size());
-    }
 }
