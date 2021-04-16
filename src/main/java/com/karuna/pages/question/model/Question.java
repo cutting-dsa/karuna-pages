@@ -1,5 +1,6 @@
 package com.karuna.pages.question.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
@@ -22,6 +23,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","answers"})
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +46,8 @@ public class Question implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(
+            cascade = CascadeType.ALL,
             orphanRemoval = true, mappedBy = "question")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Answer> answers;

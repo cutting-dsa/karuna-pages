@@ -32,7 +32,7 @@ public class Answer implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private Question question;
 
