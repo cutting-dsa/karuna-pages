@@ -52,13 +52,7 @@ public class ReviewReportsTest {
     @Test
     public void ownersOfListingsWithLowReviewsTest() {
         List<Review> reviewList = ownerFactory.getReviewList();
-        List<AppUser> owners = reviewList.stream()
-                .filter(review -> review.getRating() < 3.5)
-                .map(Review::getListing)
-                .map(Listing::getListinguser)
-                .distinct()
-                .collect(Collectors.toList());
-                //ReviewReports.ownersOfListingsWithLowReviews.apply(reviewList,3.5);
+        List<AppUser> owners = ReviewReports.ownersOfListingsWithLowReviews.apply(reviewList,3.5);
         assertEquals(1,owners.size());
         assertEquals("Ruvimbom", owners.get(0).getUsername());
     }
