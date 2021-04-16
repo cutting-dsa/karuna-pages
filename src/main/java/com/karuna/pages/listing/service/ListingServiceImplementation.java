@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 
+import static com.karuna.pages.reports.utilities.ListingReports.TOP_K_USER_WITH_BEST_RATED_LISTING;
+
 @Component
 public class ListingServiceImplementation implements ListingService {
 
@@ -80,4 +82,18 @@ public class ListingServiceImplementation implements ListingService {
         System.out.println("Result is " + listingRepository.findListingByListingname(keyword));
         return listingRepository.searchListing(keyword);
     }
+
+    @Override
+    public List<AppUser> getUserWhoseListingIsBestReviewed(Long number) {
+        List<Listing> allListings = listingRepository.findAll();
+
+        /*allListings.forEach(listing -> {
+            List<Review> allReviews = reviewService.getAllReviewsByListing(listing);
+            listing.setReviewList(allReviews);
+        });*/
+
+
+        return TOP_K_USER_WITH_BEST_RATED_LISTING.apply(allListings,number);
+    }
+
 }
