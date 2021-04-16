@@ -3,14 +3,11 @@ package com.karuna.pages.reports.utilities;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
-
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-
 public class ReviewReports {
-
 
     public static final BiFunction<List<Listing>, Long, List<AppUser>>
 
