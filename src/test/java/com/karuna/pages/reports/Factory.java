@@ -31,7 +31,7 @@ public class Factory {
 
     public Listing stubListing(){
 
-        Category category1 = new Category(1L,"Education",1);
+
         Role role = new Role(2L,"User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
@@ -39,7 +39,7 @@ public class Factory {
         reviewList.add(stubReview1());
         reviewList.add(stubReview2());
         reviewList.add(stubReview3());
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,stubUser(),category1,reviewList);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,4,stubUser(),stubCategory2(),reviewList);
 
         return listing;
 
@@ -47,49 +47,43 @@ public class Factory {
 
     public Listing stubListing1(){
 
-        Category category1 = new Category(1L,"Education",1);
         List<Review> reviewList = new ArrayList<>();
         reviewList.add(stubReview1());
         reviewList.add(stubReview2());
         reviewList.add(stubReview3());
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,stubUser(),category1,reviewList);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,2,stubUser(),stubCategory(),reviewList);
 
         return listing;
 
     }
     public Listing stubListing2(){
 
-        Category category1 = new Category(1L,"Education",1);
         List<Review> reviewList = new ArrayList<>();
         reviewList.add(stubReview1());
         reviewList.add(stubReview2());
         reviewList.add(stubReview3());
-        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,stubUser(),category1,reviewList);
+        Listing listing = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,stubUser(),stubCategory(),reviewList);
 
         return listing;
 
     }
 
     public Review stubReview1(){
-        Review review = new Review(1L,"This is my comment",4,1,stubUser(),stubListing());
+        Review review = new Review(1L,"This is my comment",4,1,stubUser(),null);
 
         return review;
 
     }
 
     public Review stubReview2(){
-        Role role = new Role(2L,"User");
-        List<Role> roleList = new ArrayList<>();
-        roleList.add(role);
-        AppUser appUser = new AppUser(1L,"Ruvimbom","Ruvimbo","Ruvimbo","Ruvimbom",1,roleList);
-        Review review = new Review(1L,"This is my another",4,1,appUser,stubListing());
+        Review review = new Review(1L,"This is my another",4,1,stubUser(),null);
 
         return review;
 
     }
 
     public Review stubReview3(){
-      Review review = new Review(1L,"This is my another",4,1,stubUser(),stubListing());
+      Review review = new Review(1L,"This is my another",4,1,stubUser2(),null);
 
         return review;
 
@@ -104,6 +98,14 @@ public class Factory {
         return  listings;
     }
 
+public Category stubCategory(){
 
+        return new Category(1L,"Education",1);
+}
+
+    public Category stubCategory2(){
+
+        return new Category(2L,"Retailware",1);
+    }
 
 }
