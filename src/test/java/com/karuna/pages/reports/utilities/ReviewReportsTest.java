@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class ReviewReportsTest {
@@ -26,7 +27,7 @@ public class ReviewReportsTest {
 
         List<AppUser> result = ReviewReports.TOP_K_REVIEWERS.apply(factory.listings(),1l);
         assertThat(result,containsInAnyOrder(factory.stubUser()));
-        Assert.assertEquals(1,result.size());
+        assertEquals(1,result.size());
 
     }
 
@@ -35,7 +36,7 @@ public class ReviewReportsTest {
 
         Optional<Category> result = ReviewReports.LOW_RATED_CATEGORY.apply(factory.listings());
 
-        Assert.assertEquals(factory.stubCategory().getName(),result.get().getName());
+        assertEquals(factory.stubCategory().getName(),result.get().getName());
 
     }
 
@@ -45,7 +46,7 @@ public class ReviewReportsTest {
         Optional<AppUser> result = ReviewReports.MOST_ANSWERING_USER_PER_CATEGORY
                 .apply(factory.questions(),factory.stubCategory());
 
-        Assert.assertEquals(factory.stubUser2().getFirstName(),result.get().getFirstName());
+        assertEquals(factory.stubUser2().getFirstName(),result.get().getFirstName());
 
     }
 
