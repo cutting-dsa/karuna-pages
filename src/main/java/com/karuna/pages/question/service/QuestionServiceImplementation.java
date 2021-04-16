@@ -21,7 +21,7 @@ public class QuestionServiceImplementation implements QuestionService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Collection<Question> getAllQuestions() {
+    public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
 
