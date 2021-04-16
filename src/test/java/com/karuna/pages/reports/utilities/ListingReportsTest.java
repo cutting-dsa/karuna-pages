@@ -3,6 +3,7 @@ package com.karuna.pages.reports.utilities;
 
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
+import com.karuna.pages.question.model.Question;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
@@ -13,9 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -95,6 +95,30 @@ public class ListingReportsTest {
 
         return Arrays.asList(review1, review2, review3);
 
+    }
+
+    private static List<Category> stubCategories(){
+        Category category1 = new Category(1L,"Education",1);
+        Category category2 = new Category(1L,"Retail",1);
+        Category category3 = new Category(1L,"Food",1);
+        Category category4 = new Category(1L,"Hotels",1);
+
+        return Arrays.asList(category1, category2, category3, category4);
+    }
+
+    private static List<Question> stubQuestions(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021,4,15,10,59,59);
+        Date qDate = calendar.getTime();
+
+
+        Question question1 = new Question(1L,"Which programs are offered at Maharishi",true,stubCategories().get(0), users().get(3), null, qDate);
+        Question question2 = new Question(1L,"What is the population of Maharishi International University",true,stubCategories().get(0), users().get(4), null, qDate);
+        Question question3 = new Question(1L,"How good is the food at Argiro",true,stubCategories().get(2), users().get(4), null, qDate);
+        Question question4 = new Question(1L,"What are the best Hotels in Fairfield",true,stubCategories().get(3), users().get(1), null, qDate);
+        Question question5 = new Question(1L,"Is there Walmart in Iowa",true,stubCategories().get(1), users().get(2), null, qDate);
+
+        return Arrays.asList(question1, question2, question3, question4, question5);
     }
 
     @Test
