@@ -4,6 +4,7 @@ import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.user.model.AppUser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,5 +28,7 @@ public interface ListingService {
     Listing deleteListing(Long id);
 
     Listing approveListing(Long id);
+
+    List<AppUser> getUserWhoseListingIsBestReviewed(Long number);
 
 }
