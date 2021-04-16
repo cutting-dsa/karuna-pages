@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.List;
 
-import static com.karuna.pages.reports.utilities.ListingReports.TOP_K_USER_WITH_BEST_RATED_LISTING;
-
 @RestController
 @RequestMapping(path = "/listingreports")
 public class ListingReportsController {
@@ -28,15 +26,6 @@ public class ListingReportsController {
 
     @GetMapping(path = "/bestperformadmin/{number}", produces = "application/json")
     public List<AppUser> getUserWhoseListingIsBestReviewed(@PathVariable Long number){
-
-        List<Listing> allListings = listingService.getAllListings();
-
-        /*allListings.forEach(listing -> {
-            List<Review> allReviews = reviewService.getAllReviewsByListing(listing);
-            listing.setReviewList(allReviews);
-        });*/
-
-
-        return TOP_K_USER_WITH_BEST_RATED_LISTING.apply(allListings,number);
+        return listingService.getUserWhoseListingIsBestReviewed(number);
     }
 }
