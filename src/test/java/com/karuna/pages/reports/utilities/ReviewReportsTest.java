@@ -20,6 +20,8 @@ public class ReviewReportsTest {
 
     Factory factory = new Factory();
 
+    OwnerFactory ownerFactory = new OwnerFactory();
+
     @Test
     public void topKReviewersTest(){
 
@@ -49,7 +51,7 @@ public class ReviewReportsTest {
 
     @Test
     public void ownersOfListingsWithLowReviewsTest() {
-        List<Review> reviewList = factory.getReviewList();
+        List<Review> reviewList = ownerFactory.getReviewList();
         List<AppUser> owners = reviewList.stream()
                 .filter(review -> review.getRating() < 3.5)
                 .map(Review::getListing)
