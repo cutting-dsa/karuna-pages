@@ -1,5 +1,6 @@
 package com.karuna.pages.listing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.UnsupportedTypeException;
@@ -21,6 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","reviewList"})
 public class Listing implements Serializable {
     private static final long serialVersionUID = 1L;
 
