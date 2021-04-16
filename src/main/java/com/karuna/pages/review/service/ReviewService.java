@@ -25,5 +25,5 @@ public interface ReviewService {
 
     List<String> getCommentsOfLowestRatings(Long count, Double rating);
 
-    List<AppUser> getOwnersOfListingsWithLowReviews(Long rating);
+    List<AppUser> getOwnersOfListingsWithLowReviews(Double rating);
 }

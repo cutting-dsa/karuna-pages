@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class QuestionAnswerUtil {
-    static BiFunction<List<Answer>, Integer, List<Question>> computeMostAnsweredQuestions =
+   public static BiFunction<List<Answer>, Integer, List<Question>> computeMostAnsweredQuestions =
             (answers, k) -> getQuestionStream(answers, k)
                     .collect(Collectors.toList());
 
-    static Function<List<Answer>, Optional<Question>> getMostAnsweredQuestion =
+    public static Function<List<Answer>, Optional<Question>> getMostAnsweredQuestion =
             (answers) -> getQuestionStream(answers, 1)
                     .findFirst();
 

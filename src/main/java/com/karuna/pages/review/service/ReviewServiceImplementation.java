@@ -93,7 +93,7 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public List<AppUser> getOwnersOfListingsWithLowReviews(Long rating) {
+    public List<AppUser> getOwnersOfListingsWithLowReviews(Double rating) {
         return ReviewReports.ownersOfListingsWithLowReviews.apply(reviewRepository.findAll(), rating);
     }
 }

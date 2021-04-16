@@ -67,7 +67,7 @@ public class ReviewReportsController {
 
     //BY JOHNSTONE
     @GetMapping(path = "/low-listing-owners/{rating}")
-    public Collection<AppUser> getOwnersOfLowestRatings(@PathVariable Long rating) {
+    public Collection<AppUser> getOwnersOfLowestRatings(@PathVariable Double rating) {
         return reviewService.getOwnersOfListingsWithLowReviews(rating);
     }
 }

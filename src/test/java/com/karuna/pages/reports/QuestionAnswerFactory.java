@@ -11,10 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 public class QuestionAnswerFactory {
-    public static Answer createAnswer(String answerText, Question question) {
+    public static Answer createAnswer(String answerText, Question question, AppUser user) {
         Answer answer = new Answer();
         answer.setAnswer(answerText);
-        answer.setUser(createUser("johndoe", "John", "Doe"));
+        answer.setUser(user);
         answer.setQuestion(question);
         answer.setCreated_at(new Date());
         return answer;
@@ -36,7 +36,7 @@ public class QuestionAnswerFactory {
         return category;
     }
 
-    private static AppUser createUser(String username, String firstName, String lastName) {
+    public static AppUser createUser(String username, String firstName, String lastName) {
         Role role = new Role(2L, "User");
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
