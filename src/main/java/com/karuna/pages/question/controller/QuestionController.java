@@ -38,5 +38,4 @@ public class QuestionController {
     public Question updateQuestion(@RequestBody Question question) {
         return questionService.editQuestion(question);
     }
-
 }

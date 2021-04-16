@@ -63,8 +63,8 @@ public class Listing implements Serializable {
     @JoinColumn(name = "category", referencedColumnName = "id")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "reviews", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true, mappedBy = "listing")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Review> reviewList;
 

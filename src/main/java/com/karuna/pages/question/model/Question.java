@@ -1,16 +1,20 @@
 package com.karuna.pages.question.model;
 
 import com.karuna.pages.category.model.Category;
+import com.karuna.pages.review.model.Review;
 import com.karuna.pages.user.model.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +43,11 @@ public class Question implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private AppUser user;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true, mappedBy = "question")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Answer> answers;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

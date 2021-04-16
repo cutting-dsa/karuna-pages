@@ -1,6 +1,5 @@
 package com.karuna.pages.question.service;
 
-import com.karuna.pages.core.exceptions.BadRequestException;
 import com.karuna.pages.core.exceptions.ResourceNotFoundException;
 import com.karuna.pages.question.model.Answer;
 import com.karuna.pages.question.model.Question;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class AnswerServiceImplementation implements AnswerService {
@@ -39,5 +40,14 @@ public class AnswerServiceImplementation implements AnswerService {
         Question question = questionRepository.findQuestionById(id);
         if (question == null) throw new ResourceNotFoundException("Question with id " + id + " not found");
         return answerRepository.getAnswerByQuestionId(id);
+    }
+
+    public Question mostAnsweredQuestion() {
+        Optional<Question> popularQuestion = QuestionAnswerUtil.getMostAnsweredQuestion.apply(answerRepository.findAll());
+        return popularQuestion.orElseThrow(() -> new ResourceNotFoundException("Question not found at the moment"));
+    }
+
+    public List<Question> mostAnsweredQuestions(Integer count) {
+        return QuestionAnswerUtil.computeMostAnsweredQuestions.apply(answerRepository.findAll(), count);
     }
 }

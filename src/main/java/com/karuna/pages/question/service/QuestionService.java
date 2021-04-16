@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public interface QuestionService {
-    Collection<Question> getAllQuestions();
+    List<Question> getAllQuestions();
 
     Collection<Question> getQuestions(Long id);
 

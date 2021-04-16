@@ -2,6 +2,7 @@ package com.karuna.pages.review.service;
 
 import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.review.model.Review;
+import com.karuna.pages.user.model.AppUser;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -18,7 +19,11 @@ public interface ReviewService {
 
     Review saveReview(Review review);
 
-    Review editReview(Long id,Review review);
+    Review editReview(Long id, Review review);
 
     Review deleteReview(Long id);
+
+    List<String> getCommentsOfLowestRatings(Long count, Double rating);
+
+    List<AppUser> getOwnersOfListingsWithLowReviews(Long rating);
 }

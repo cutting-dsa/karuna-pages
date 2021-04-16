@@ -1,7 +1,6 @@
 package com.karuna.pages.question.service;
 
 import com.karuna.pages.category.model.Category;
-import com.karuna.pages.listing.model.Listing;
 import com.karuna.pages.question.model.Answer;
 import com.karuna.pages.question.model.Question;
 import com.karuna.pages.question.repository.AnswerRepository;
@@ -16,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -48,7 +47,7 @@ class AnswerServiceImplementationTest {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2021, 11, 31, 9, 59, 59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(),qDate);
+        Question question = new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(), qDate);
 
         return question;
 
