@@ -3,6 +3,7 @@ package com.karuna.pages.reports.utilities;
 
 import com.karuna.pages.category.model.Category;
 import com.karuna.pages.listing.model.Listing;
+import com.karuna.pages.question.model.Question;
 import com.karuna.pages.review.model.Review;
 import com.karuna.pages.role.model.Role;
 import com.karuna.pages.user.model.AppUser;
@@ -13,9 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -25,10 +25,12 @@ import static org.junit.Assert.assertThat;
 public class ListingReportsTest {
 
     static List<Listing> listings;
+    static List<Question> questions;
 
     @BeforeAll
     public static void setUp() {
         listings = stubListing();
+        questions = stubQuestions();
     }
 
     private static List<Role> roles(){
@@ -62,7 +64,7 @@ public class ListingReportsTest {
 
     private static List<Listing> stubListing(){
 
-        Category category1 = new Category(1L,"Education",1);
+        Category category1 = stubCategories().get(0);
         Role role = new Role(2L,"User");
         List<Role> roleList = roles();
 
@@ -77,7 +79,8 @@ public class ListingReportsTest {
 
         AppUser appUser2 = users().get(1);
         AppUser appUser3 = users().get(2);
-        Listing listing2 = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png","icon.png",0,1,appUser2,category1,null);
+        Listing listing2 = new Listing(1L,"Jefferson",1,"someAddress",123.2,321.1,"banner.png",
+                "icon.png",0,1,appUser2,category1,null);
         listing2.setReviewList(stubReview(listing2, appUser3));
         listing2.getReviewList().get(0).setRating(1);
         listing2.getReviewList().get(1).setRating(2);
@@ -95,6 +98,30 @@ public class ListingReportsTest {
 
         return Arrays.asList(review1, review2, review3);
 
+    }
+
+    private static List<Category> stubCategories(){
+        Category category1 = new Category(1L,"Education",1);
+        Category category2 = new Category(1L,"Retail",1);
+        Category category3 = new Category(1L,"Food",1);
+        Category category4 = new Category(1L,"Hotels",1);
+
+        return Arrays.asList(category1, category2, category3, category4);
+    }
+
+    private static List<Question> stubQuestions(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2021,4,15,10,59,59);
+        Date qDate = calendar.getTime();
+
+
+        Question question1 = new Question(1L,"Which programs are offered at Maharishi",true,stubCategories().get(0), users().get(0), null, qDate);
+        Question question2 = new Question(1L,"What is the population of Maharishi International University",true,stubCategories().get(0), users().get(3), null, qDate);
+        Question question3 = new Question(1L,"How good is the food at Argiro",true,stubCategories().get(2), users().get(3), null, qDate);
+        Question question4 = new Question(1L,"What are the best Hotels in Fairfield",true,stubCategories().get(3), users().get(1), null, qDate);
+        Question question5 = new Question(1L,"Is there Walmart in Iowa",true,stubCategories().get(1), users().get(2), null, qDate);
+
+        return Arrays.asList(question1, question2, question3, question4, question5);
     }
 
     @Test
@@ -140,6 +167,34 @@ public class ListingReportsTest {
 
         Assert.assertEquals(1, users.size());
         Assert.assertEquals(expectedUser.getFirstName(), users.get(0).getFirstName());
+
+    }
+
+    @Test
+    public void testCATEGORIES_FROM_LISTINGS1(){
+
+        List<Category> categories = ListingReports.CATEGORIES_FROM_LISTINGS.apply(listings);
+
+        Assert.assertEquals(2, categories.size());
+
+    }
+
+    @Test
+    public void testCATEGORIES_FROM_QUESTION1(){
+
+        List<Category> categories = ListingReports.CATEGORIES_FROM_QUESTION.apply(questions);
+
+        Assert.assertEquals(5, categories.size());
+
+    }
+
+    @Test
+    public void testMOST_POPULAR_CATEGORY1(){
+
+        List<Category> categories = ListingReports.MOST_POPULAR_CATEGORY.apply(listings, questions, 1L);
+
+        Assert.assertEquals(1, categories.size());
+        Assert.assertEquals(stubCategories().get(0).getName(), categories.get(0).getName());
 
     }
 }
