@@ -39,7 +39,7 @@ public class QuestionControllerTest {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2021, 11, 31, 59, 59, 59);
         Date qDate = calendar.getTime();
-        return new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(), qDate);
+        return new Question(1L, "Which programs are offered at Maharishi", true, category1, stubUser(),null, qDate);
     }
 
     @Test

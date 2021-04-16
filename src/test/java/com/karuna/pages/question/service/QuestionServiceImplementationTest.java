@@ -36,7 +36,7 @@ public class QuestionServiceImplementationTest {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2021,11,31,59,59,59);
         Date qDate = calendar.getTime();
-        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,stubUser(),qDate);
+        Question question = new Question(1L,"Which programs are offered at Maharishi",true,category1,stubUser(),null,qDate);
 
         return question;
 
