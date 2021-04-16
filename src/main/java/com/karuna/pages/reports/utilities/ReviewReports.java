@@ -45,7 +45,7 @@ public class ReviewReports {
     public static BiFunction<List<Question>, Category, Optional<AppUser>>
             MOST_ANSWERING_USER_PER_CATEGORY = (questions, category) ->
             questions.stream()
-                    .filter(question -> question.getCategory().equals(category))
+                    .filter(question -> question.getCategory().getId().equals(category.getId()))
                     .flatMap(question -> question.getAnswers().stream())
                     .collect(Collectors.groupingBy(answer -> answer.getUser()))
                     .entrySet()
