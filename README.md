@@ -12,6 +12,11 @@ Companies can also register and get reviews from the users
 Note: Default username is `user` and password `password`
 
 ## Instructions to run using Docker and docker-compose
+docker-compose build
+docker-compose up -d
+
+## Continuous Integration and Continous Development
+The project uses Github Actions and builds docker packages automatically. Deployment to servers is initiated by github actions 
 
 ## Versions
 
